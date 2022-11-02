@@ -1,0 +1,12 @@
+from django.urls import path
+from backend.api import views
+from backend.api.views import ProfileList,ProfileDetails,ReclamationList,ReclamationDetails,ReclamationCreate
+
+urlpatterns = [
+    path('profile-list/', ProfileList.as_view(), name='profile-list'),
+    path('profile/<int:pk>', ProfileDetails.as_view(), name='profile-details'),
+    path('reclamation-list/', ReclamationList.as_view(), name='reclamation-list'),
+    path('reclamation-create/', ReclamationCreate.as_view(), name='reclamation-create'),
+    path('reclamation/<int:pk>', ReclamationDetails.as_view(), name='reclamation-details'),
+    path('profile/me/', views.current_profile_view, name="retrieve current profile infos"),
+]
