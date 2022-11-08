@@ -90,12 +90,12 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'ahmedna1996',
         'OPTIONS': {
-         "init_command": "SET foreign_key_checks = 0;",
-    },
+            "init_command": "SET foreign_key_checks = 0;",
+        },
     }
 }
 
-AUTH_USER_MODEL='backend.Profile'
+AUTH_USER_MODEL = 'backend.Profile'
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -145,10 +145,10 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES' : [
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication'
     ],
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     # 'PAGE_SIZE': 5
-    
+
 }

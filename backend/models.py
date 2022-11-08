@@ -5,6 +5,7 @@ from django.utils import timezone
 
 # Create your models here.
 
+
 class UserManager(BaseUserManager):
 
     def _create_user(self, email, password, **extra_fields):
@@ -33,15 +34,17 @@ class UserManager(BaseUserManager):
         user.is_admin = True
         user.save(using=self._db)
         return user
-    
+
+
 class Profile(AbstractBaseUser):
     first_name = models.CharField(max_length=255, null=True)
     last_name = models.CharField(max_length=255, null=True)
-    email = models.EmailField(max_length=255,unique=True)
+    email = models.EmailField(max_length=255, unique=True)
     password = models.CharField(max_length=255)
     is_admin = models.BooleanField(default=False)
     is_consultant = models.BooleanField(default=True)
     USERNAME_FIELD = 'email'
+
     @property
     def is_superuser(self):
         return self.is_admin
@@ -56,16 +59,17 @@ class Profile(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return self.is_admin
     objects = UserManager()
-    
+
     def __str__(self):
         return self.first_name
-    
+
+
 class Reclamation(models.Model):
     customer_name = models.CharField(max_length=255, null=True)
-    customer_phone_number = models.CharField(max_length=255, null=True)
+    customer_phone_number = models.BigIntegerField(null=True)
     customer_nni_number = models.BigIntegerField(null=True)
-    identity_card = models.FileField(null=True,upload_to='nni/')
-    photo = models.FileField(null=True,upload_to='photo/')
+    identity_card = models.FileField(null=True, upload_to='nni/')
+    photo = models.FileField(null=True, upload_to='photo/')
     description = models.TextField(null=True)
     TYPE_ACTIVATION = 'Activation'
     TYPE_PHONE = 'Changement de téléphone'
@@ -73,29 +77,31 @@ class Reclamation(models.Model):
     TYPE_PASSWORD = 'Changement de mot de passe'
     TYPE_Transfers = 'Virements'
     TYPE_OTHERS = 'Autres'
-    
+
     STATUS_ON_GOING = 'En cours de traitement'
     STATUS_TREATED = 'Traitée'
     STATUS_NOT_TREATED = 'Pas encore traitée'
-    
+
     STATUS_CHOICES = [
-        (STATUS_ON_GOING,'En cours de traitement'),
-        (STATUS_TREATED,'Traitée'),
-        (STATUS_NOT_TREATED,'Pas encore traitée')
-        ]
-    
+        (STATUS_ON_GOING, 'En cours de traitement'),
+        (STATUS_TREATED, 'Traitée'),
+        (STATUS_NOT_TREATED, 'Pas encore traitée')
+    ]
+
     TYPE_CHOICES = [
-        (TYPE_ACTIVATION,'Activation'),
-        (TYPE_PHONE,'Changement de téléphone'),
-        (TYPE_UNBLOCK,'Déblocage'),
-        (TYPE_PASSWORD,'Changement de mot de passe'),
-        (TYPE_Transfers,'Virements'),
-        (TYPE_OTHERS,'Autres')
+        (TYPE_ACTIVATION, 'Activation'),
+        (TYPE_PHONE, 'Changement de téléphone'),
+        (TYPE_UNBLOCK, 'Déblocage'),
+        (TYPE_PASSWORD, 'Changement de mot de passe'),
+        (TYPE_Transfers, 'Virements'),
+        (TYPE_OTHERS, 'Autres')
     ]
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     last_update = models.DateTimeField(auto_now=True)
-    type = models.CharField(max_length=255,choices=TYPE_CHOICES, default=TYPE_ACTIVATION)
-    status = models.CharField(max_length=255,choices=STATUS_CHOICES, default=STATUS_NOT_TREATED)
+    type = models.CharField(
+        max_length=255, choices=TYPE_CHOICES, default=TYPE_ACTIVATION)
+    status = models.CharField(
+        max_length=255, choices=STATUS_CHOICES, default=STATUS_NOT_TREATED)
 
     def __str__(self):
         return self.customer_name

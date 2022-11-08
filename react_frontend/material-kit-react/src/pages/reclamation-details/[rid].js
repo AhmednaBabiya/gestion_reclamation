@@ -39,7 +39,7 @@ function ReclamationDetails() {
   const handleSave = () => {
     axios
       .put(
-        reclamationURL,
+        reclamationURL + "/update-delete",
         { status },
         {
           headers: {
@@ -118,7 +118,6 @@ function ReclamationDetails() {
                           disabled
                           label="nom du client"
                           name="customer_name"
-                          onChange={(e) => setCustomerName(e.target.value)}
                           value={customer_name}
                           variant="outlined"
                         />
@@ -129,7 +128,6 @@ function ReclamationDetails() {
                           disabled
                           label="Numéro de téléphone du client"
                           name="customer_phone_number"
-                          onChange={(e) => setCustomerPhoneNumber(e.target.value)}
                           value={customer_phone_number}
                           variant="outlined"
                         />
@@ -140,7 +138,6 @@ function ReclamationDetails() {
                           disabled
                           label="NNI du client"
                           name="customer_nni_number"
-                          onChange={(e) => setCustomerNNINumber(e.target.value)}
                           value={customer_nni_number}
                           variant="outlined"
                         />
@@ -151,7 +148,6 @@ function ReclamationDetails() {
                           disabled
                           label="date de création"
                           name="created_at"
-                          onChange={(e) => setCreatedAt(e.target.value)}
                           value={created_at}
                           variant="outlined"
                         />
@@ -162,35 +158,19 @@ function ReclamationDetails() {
                           disabled
                           label="date du dernière mis à jour"
                           name="customer_nni_number"
-                          onChange={(e) => setLastUpdate(e.target.value)}
                           value={last_update}
                           variant="outlined"
                         />
                       </Grid>
                       <Grid item md={6} xs={12}>
-                        <FormControl fullWidth>
-                          <InputLabel>Type</InputLabel>
-                          <Select
-                            labelId="type"
-                            disabled
-                            fullWidth
-                            label="type"
-                            name="type"
-                            onChange={(e) => setType(e.target.value)}
-                            value={type}
-                          >
-                            <MenuItem value="Activation">Activation</MenuItem>
-                            <MenuItem value="Changement de téléphone">
-                              Changement de téléphone
-                            </MenuItem>
-                            <MenuItem value="Déblocage">Déblocage</MenuItem>
-                            <MenuItem value="Changement de mot de passe">
-                              Changement de mot de passe
-                            </MenuItem>
-                            <MenuItem value="Virements">Virements</MenuItem>
-                            <MenuItem value="Autres">Autres</MenuItem>
-                          </Select>
-                        </FormControl>
+                        <TextField
+                          fullWidth
+                          disabled
+                          label="type"
+                          name="type"
+                          value={type}
+                          variant="outlined"
+                        />
                       </Grid>
                       <Grid item md={6} xs={12}>
                         <FormControl fullWidth>
@@ -216,7 +196,6 @@ function ReclamationDetails() {
                           label="description"
                           name="description"
                           multiline
-                          onChange={(e) => setDescription(e.target.value)}
                           value={description}
                           variant="outlined"
                         />

@@ -177,7 +177,7 @@ export const CustomerListResults = () => {
                         highlightClassName="YourHighlightClass"
                         searchWords={[search]}
                         autoEscape={true}
-                        textToHighlight={customer.customer_phone_number}
+                        textToHighlight={customer.customer_phone_number.toString()}
                       />
                     </TableCell>
                     <TableCell>
