@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-zpcp*-7n%7jlvm8!5=yi=7@+4--@09r&ph8x9u(=phaa!#r6$s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.50.20', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -84,14 +84,15 @@ WSGI_APPLICATION = 'gestion_reclamation.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'gestion_reclamation',
         'HOST': 'localhost',
-        'USER': 'root',
+        'USER': 'postgres',
         'PASSWORD': 'ahmedna1996',
-        'OPTIONS': {
-            "init_command": "SET foreign_key_checks = 0;",
-        },
+        'PORT': '',
+        # 'OPTIONS': {
+        #     "init_command": "SET foreign_key_checks = 0;",
+        # },
     }
 }
 
@@ -132,9 +133,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, '/static')
-# ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 

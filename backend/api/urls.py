@@ -1,6 +1,6 @@
 from django.urls import path
 from backend.api import views
-from backend.api.views import ProfileList, ProfileDetails, ReclamationList, ReclamationDetails, ReclamationCreate, ReclamationUpdateDetails
+from backend.api.views import *
 
 urlpatterns = [
     path('profile-list/', ProfileList.as_view(), name='profile-list'),

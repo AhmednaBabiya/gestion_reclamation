@@ -61,7 +61,7 @@ class Profile(AbstractBaseUser):
     objects = UserManager()
 
     def __str__(self):
-        return self.first_name
+        return self.email
 
 
 class Reclamation(models.Model):

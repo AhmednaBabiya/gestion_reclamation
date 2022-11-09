@@ -9,7 +9,7 @@ from rest_framework import filters
 from backend.api.permissions import AdminOrSelf
 from backend.models import Profile, Reclamation
 from backend.api.serializers import ProfileSerializer, ReclamationSerializer, ReclamationCreateSerializer
-from django_filters.rest_framework import DjangoFilterBackend
+# from django_filters.rest_framework import DjangoFilterBackend
 from backend.api.pagination import ReclamationPagination, ProfilePagination
 
 
