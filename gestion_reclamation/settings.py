@@ -87,8 +87,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'gestion_reclamation',
         'HOST': 'localhost',
-        'USER': 'admin',
-        'PASSWORD': 'ges_rec@bmi2022',
+        'USER': 'postgres',
+        'PASSWORD': 'ahmedna',
         'PORT': '',
         # 'OPTIONS': {
         #     "init_command": "SET foreign_key_checks = 0;",
