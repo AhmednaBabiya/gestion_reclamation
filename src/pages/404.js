@@ -29,8 +29,8 @@ const Page = () => (
             404: La page que vous recherchez n&apos;est pas ici
           </Typography>
           <Typography align="center" color="textPrimary" variant="subtitle2">
-            Soit vous avez essayé une route louche, soit vous êtes venu ici par erreur. Quoi
-            qu&apos;il en soit, essayez d'utiliser la navigation
+            Soit vous avez essayé une route invalide, soit vous êtes venu ici par erreur. Quoi
+            qu&apos;il en soit, essayez d&apos;utiliser la navigation
           </Typography>
           <Box sx={{ textAlign: "center" }}>
             <img
