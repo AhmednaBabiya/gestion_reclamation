@@ -22,7 +22,7 @@ import { Search as SearchIcon } from "../../icons/search";
 import { SeverityPill } from "../severity-pill";
 
 export const CustomerListResults = () => {
-  const baseURL = `http://127.0.0.1:8000/backend/reclamation-list/?search=`;
+  const baseURL = `http://reclamation.bmi.mr/backend/reclamation-list/?search=`;
   const [rows_count, setRowsCount] = useState(null);
   const [reclamations_page, setReclamationsPage] = useState(1);
   const [rec_customers, setRecCustomers] = useState([]);

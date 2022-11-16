@@ -5,7 +5,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 
 const ReclamationCreate = () => {
-  const baseURL = "http://127.0.0.1:8000/backend/reclamation-list/";
+  const baseURL = "http://reclamation.bmi.mr/backend/reclamation-list/";
   const [reclamations, setReclamations] = useState([]);
   let phone_number = null;
   let match = false;

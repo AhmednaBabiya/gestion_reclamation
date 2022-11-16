@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 
 export const AccountProfileDetails = (props) => {
-  const profileURL = "http://127.0.0.1:8000/backend/profile/me/";
+  const profileURL = "http://reclamation.bmi.mr/backend/profile/me/";
   let tokenStr = localStorage.getItem("token");
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");

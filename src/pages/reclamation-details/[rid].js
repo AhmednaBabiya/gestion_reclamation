@@ -23,7 +23,7 @@ import { DashboardLayout } from "../../components/dashboard-layout";
 function ReclamationDetails() {
   const router = useRouter();
   const { rid } = router.query;
-  const reclamationURL = `http://127.0.0.1:8000/backend/reclamation/${rid}`;
+  const reclamationURL = `http://reclamation.bmi.mr/backend/reclamation/${rid}`;
   let tokenStr = localStorage.getItem("token");
   const [customer_name, setCustomerName] = useState("");
   const [customer_phone_number, setCustomerPhoneNumber] = useState("");

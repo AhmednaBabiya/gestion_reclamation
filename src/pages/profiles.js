@@ -7,7 +7,7 @@ import { ProductCard } from "../components/product/product-card";
 import { DashboardLayout } from "../components/dashboard-layout";
 
 const Page = () => {
-  const profilesURL = "http://127.0.0.1:8000/backend/profile-list/";
+  const profilesURL = "http://reclamation.bmi.mr/backend/profile-list/";
   let tokenStr = localStorage.getItem("token");
   const [profiles, setProfiles] = useState([]);
   const [rows_count, setRowsCount] = useState(null);

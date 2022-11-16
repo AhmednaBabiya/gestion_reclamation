@@ -8,7 +8,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 
 const Login = () => {
-  const baseURL = "http://127.0.0.1:8000/account/login/";
+  const baseURL = "http://reclamation.bmi.mr/account/login/";
   const token = "";
   const formik = useFormik({
     initialValues: {
