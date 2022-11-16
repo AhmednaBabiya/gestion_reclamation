@@ -68,8 +68,8 @@ class Reclamation(models.Model):
     customer_name = models.CharField(max_length=255, null=True)
     customer_phone_number = models.BigIntegerField(null=True)
     customer_nni_number = models.BigIntegerField(null=True)
-    identity_card = models.FileField(null=True, upload_to='nni/')
-    photo = models.FileField(null=True, upload_to='photo/')
+    identity_card = models.FileField(null=True)
+    photo = models.FileField(null=True)
     description = models.TextField(null=True)
     TYPE_ACTIVATION = 'Activation'
     TYPE_PHONE = 'Changement de téléphone'
