@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'backend',
     'django_filters',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
