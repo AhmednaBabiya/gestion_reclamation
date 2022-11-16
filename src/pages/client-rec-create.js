@@ -20,6 +20,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />; //
@@ -31,6 +32,7 @@ const ClientReclamationCreate = () => {
   const [client_photo, setPhoto] = useState(null);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
+  const [state, setState] = useState(false);
   let form_data = new FormData();
   const formik = useFormik({
     initialValues: {
@@ -47,6 +49,7 @@ const ClientReclamationCreate = () => {
       type: Yup.string().max(255).required("Le type est requis"),
     }),
     onSubmit: () => {
+      setState(true);
       form_data.append("customer_name", formik.values.name);
       form_data.append("customer_phone_number", formik.values.phone);
       form_data.append("customer_nni_number", formik.values.nni);
@@ -63,6 +66,7 @@ const ClientReclamationCreate = () => {
           setOpenSuccess(true);
         })
         .catch((err) => {
+          setState(false);
           setOpenError(true);
           console.log(err);
         });
@@ -73,7 +77,7 @@ const ClientReclamationCreate = () => {
       return;
     }
     setOpenSuccess(false);
-    Router.push("/reclamations");
+    Router.push("/client-rec-details");
   };
   const handleCloseError = (event, reason) => {
     if (reason === "clickaway") {
@@ -81,6 +85,7 @@ const ClientReclamationCreate = () => {
     }
     setOpenError(false);
   };
+  console.log("state : ", state);
   return (
     <>
       <Head>
@@ -246,14 +251,22 @@ const ClientReclamationCreate = () => {
               </div>
             </div>
             <Box sx={{ py: 2 }}>
-              <Button color="primary" fullWidth size="large" type="submit" variant="contained">
+              <LoadingButton
+                color="primary"
+                fullWidth
+                loading={state}
+                size="large"
+                type="submit"
+                loadingPosition="end"
+                variant="contained"
+              >
                 Créer la réclamation
-              </Button>
+              </LoadingButton>
             </Box>
           </form>
         </Container>
       </Box>
-      <Snackbar open={openError} autoHideDuration={6000} onClose={handleCloseError}>
+      <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
         <Alert onClose={handleCloseError} severity="error">
           Erreur lors de la création de votre réclamation, Veuillez vous assurer d&apos;avoir
           remplir les champs necéssaires
@@ -261,7 +274,7 @@ const ClientReclamationCreate = () => {
       </Snackbar>
       <Snackbar
         open={openSuccess}
-        autoHideDuration={5000}
+        autoHideDuration={4000}
         onClose={handleCloseSuccess}
         style={{ color: "#AB334B", textAlign: "center" }}
       >
