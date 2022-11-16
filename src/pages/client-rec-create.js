@@ -26,7 +26,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 const ClientReclamationCreate = () => {
-  const baseURL = "http://reclamation.bmi.mr/backend/reclamation-create/";
+  const baseURL = "http://reclamation.bmi.mr:8000/backend/reclamation-create/";
   const [client_identity, setIdentityCard] = useState(null);
   const [client_photo, setPhoto] = useState(null);
   const [openSuccess, setOpenSuccess] = useState(false);

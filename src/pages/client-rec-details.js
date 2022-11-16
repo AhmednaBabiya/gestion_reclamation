@@ -16,7 +16,7 @@ import Head from "next/head";
 
 function ClientReclamationDetails() {
   let rec_id = localStorage.getItem("rec_id");
-  const reclamationURL = `http://reclamation.bmi.mr/backend/reclamation/${rec_id}`;
+  const reclamationURL = `http://reclamation.bmi.mr:8000/backend/reclamation/${rec_id}`;
   const [customer_name, setCustomerName] = useState("");
   const [customer_phone_number, setCustomerPhoneNumber] = useState("");
   const [customer_nni_number, setCustomerNNINumber] = useState("");

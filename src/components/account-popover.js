@@ -6,7 +6,7 @@ import { Box, MenuItem, MenuList, Popover, Typography } from "@mui/material";
 
 export const AccountPopover = (props) => {
   const { anchorEl, onClose, open, ...other } = props;
-  const profileURL = "http://reclamation.bmi.mr/backend/profile/me/";
+  const profileURL = "http://reclamation.bmi.mr:8000/backend/profile/me/";
   let tokenStr = localStorage.getItem("token");
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");

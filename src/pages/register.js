@@ -17,7 +17,7 @@ import {
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const Register = () => {
-  const baseURL = "http://reclamation.bmi.mr/account/register/";
+  const baseURL = "http://reclamation.bmi.mr:8000/account/register/";
   const formik = useFormik({
     initialValues: {
       first_name: "",
