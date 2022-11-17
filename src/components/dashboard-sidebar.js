@@ -86,12 +86,22 @@ export const DashboardSidebar = (props) => {
         }}
       >
         <div>
-          <Box sx={{ p: 3 }}>
+          <Box style={{ marginTop: -10, marginBottom: -50 }} sx={{ p: 3 }}>
             {/* <NextLink href="/" passHref> */}
-            <a>
+            <a style={{ display: "flex" }}>
               <img
-                src="/static/trace.svg"
-                style={{ height: 50, width: 151, marginBottom: -25 }}
+                src="/static/LOGO BMI.svg"
+                style={{
+                  height: 101,
+                  width: 151,
+                  marginBottom: -50,
+                  marginTop: -34,
+                  marginLeft: -26,
+                }}
+              ></img>
+              <img
+                src="/static/LOGO-SEDAD.svg"
+                style={{ width: 115, marginLeft: 10, marginTop: -10 }}
               ></img>
             </a>
             {/* </NextLink> */}

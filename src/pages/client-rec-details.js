@@ -26,6 +26,7 @@ function ClientReclamationDetails() {
   const [created_at, setCreatedAt] = useState("");
   const [type, setType] = useState("");
   const [status, setStatus] = useState("");
+  const [language, setLanguage] = useState("ar");
 
   useEffect(() => {
     axios
@@ -61,7 +62,11 @@ function ClientReclamationDetails() {
   return (
     <>
       <Head>
-        <title>Details réclamation | Gestion de réclamations</title>
+        <title>
+          {language == "fr"
+            ? "Details réclamation | Gestion de réclamations"
+            : "تفاصيل الشكوى | إدارة المطالبات"}
+        </title>
       </Head>
       <Box
         component="main"
@@ -75,10 +80,19 @@ function ClientReclamationDetails() {
             <Grid item lg={11} md={7} xs={14}>
               <form>
                 <Card>
-                  <CardHeader
-                    subheader="Vous ne pouvez pas créer une nouvelle réclamation tant que celle ci n'est pas traitée"
-                    title="Détails de votre dernière réclamation"
-                  />
+                  {language == "fr" ? (
+                    <CardHeader
+                      subheader="Vous ne pouvez pas créer une nouvelle réclamation tant que celle ci n'est pas traitée"
+                      title="Détails de votre dernière réclamation"
+                    />
+                  ) : (
+                    <CardHeader
+                      dir="rtl"
+                      subheader="لا يمكنك إنشاء شكوى جديدة حتى يتم تصحيح آخر شكوى"
+                      title="تفاصيل الشكوى الأخيرة"
+                    />
+                  )}
+
                   <Divider />
                   <CardContent>
                     <Grid container spacing={3}>
@@ -86,7 +100,7 @@ function ClientReclamationDetails() {
                         <TextField
                           fullWidth
                           disabled
-                          label="nom"
+                          label={language == "fr" ? "Nom" : "الاسم"}
                           name="customer_name"
                           value={customer_name}
                           variant="outlined"
@@ -96,7 +110,7 @@ function ClientReclamationDetails() {
                         <TextField
                           fullWidth
                           disabled
-                          label="Numéro de téléphone"
+                          label={language == "fr" ? "Numéro de téléphone" : "رقم الهاتف"}
                           name="customer_phone_number"
                           value={customer_phone_number}
                           variant="outlined"
@@ -106,7 +120,7 @@ function ClientReclamationDetails() {
                         <TextField
                           fullWidth
                           disabled
-                          label="NNI"
+                          label={language == "fr" ? "NNI" : "رقم الهوية الوطنية"}
                           name="customer_nni_number"
                           value={customer_nni_number}
                           variant="outlined"
@@ -116,7 +130,7 @@ function ClientReclamationDetails() {
                         <TextField
                           fullWidth
                           disabled
-                          label="date de création"
+                          label={language == "fr" ? "Date de création" : "تاريخ الإنشاء"}
                           name="created_at"
                           value={created_at}
                           variant="outlined"
@@ -126,7 +140,7 @@ function ClientReclamationDetails() {
                         <TextField
                           fullWidth
                           disabled
-                          label="type de réclamation"
+                          label={language == "fr" ? "Type de réclamation" : "نوع الشكوى"}
                           name="type"
                           value={type}
                           variant="outlined"
@@ -136,7 +150,7 @@ function ClientReclamationDetails() {
                         <TextField
                           fullWidth
                           disabled
-                          label="statut de la réclamation"
+                          label={language == "fr" ? "Statut de la réclamation" : "حالة الشكوى"}
                           name="status"
                           value={status}
                           variant="outlined"
@@ -146,7 +160,7 @@ function ClientReclamationDetails() {
                         <TextField
                           fullWidth
                           disabled
-                          label="description"
+                          label={language == "fr" ? "Description" : "وصف الشكوى"}
                           name="description"
                           multiline
                           onChange={(e) => setDescription(e.target.value)}
@@ -155,7 +169,9 @@ function ClientReclamationDetails() {
                         />
                       </Grid>
                       <Grid item md={6} xs={12}>
-                        <a>Photo du client</a>
+                        <div dir={language == "fr" ? null : "rtl"}>
+                          <a>{language == "fr" ? "Photo" : "الصورة"}</a>
+                        </div>
                         <div
                           style={{
                             alignItems: "center",
@@ -170,7 +186,10 @@ function ClientReclamationDetails() {
                         </div>
                       </Grid>
                       <Grid item md={6} xs={12}>
-                        <a>Carte d&apos;identité</a>
+                        <div dir={language == "fr" ? null : "rtl"}>
+                          <a>{language == "fr" ? `Carte d'identité` : "الهوية الوطنية"}</a>
+                        </div>
+                        <a></a>
                         <div
                           style={{
                             alignItems: "center",
@@ -196,11 +215,11 @@ function ClientReclamationDetails() {
                   >
                     {status === "Traitée" ? (
                       <Button color="primary" variant="contained" onClick={handleCreate}>
-                        Créer une nouvelle réclamation
+                        {language == "fr" ? "Créer une nouvelle réclamation" : "إنشاء مطالبة جديدة"}
                       </Button>
                     ) : (
                       <Button color="primary" variant="contained" disabled>
-                        Créer une nouvelle réclamation
+                        {language == "fr" ? "Créer une nouvelle réclamation" : "إنشاء مطالبة جديدة"}
                       </Button>
                     )}
                   </Box>

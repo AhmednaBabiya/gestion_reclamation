@@ -3,10 +3,12 @@ import Router from "next/router";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import Header from "../components/header";
 
 const ReclamationCreate = () => {
   const baseURL = "https://reclamation.bmi.mr:8000/backend/reclamation-list/";
   const [reclamations, setReclamations] = useState([]);
+  const [language, setLanguage] = useState("ar");
   let phone_number = null;
   let match = false;
 
@@ -44,6 +46,7 @@ const ReclamationCreate = () => {
       <Head>
         <title>BMI | Gestion de réclamation</title>
       </Head>
+      <Header />
       <Box
         component="main"
         sx={{
@@ -55,17 +58,29 @@ const ReclamationCreate = () => {
       >
         <Container maxWidth="sm">
           <Box sx={{ my: 3 }}>
-            <Typography color="textPrimary" variant="h4">
-              Gestion de réclamations
-            </Typography>
-            <Typography color="textSecondary" gutterBottom variant="body2">
-              {`Bienvenue dans la gestion de réclamations de BMI.\n
+            {language == "fr" ? (
+              <Typography color="textPrimary" variant="h4">
+                Gestion de réclamations
+              </Typography>
+            ) : (
+              <Typography dir="rtl" color="textPrimary" variant="h4">
+                إدارة الشكاوى
+              </Typography>
+            )}
+            {language == "fr" ? (
+              <Typography color="textSecondary" gutterBottom variant="body2">
+                {`Bienvenue dans la gestion de réclamations de BMI.\n
                 Veuillez entrer votre numéro de téléphone afin de poursuivre`}
-            </Typography>
+              </Typography>
+            ) : (
+              <Typography dir="rtl" color="textSecondary" gutterBottom variant="body2">
+                {`مرحبًا بكم في إدارة الشكاوى BMI.\n الرجاء إدخال رقم هاتفك للمتابعة`}
+              </Typography>
+            )}
           </Box>
           <TextField
             fullWidth
-            label="Numéro téléphone"
+            label={language == "fr" ? "Numéro téléphone" : "رقم الهاتف"}
             margin="normal"
             name="phone"
             type="number"
@@ -81,7 +96,7 @@ const ReclamationCreate = () => {
               variant="contained"
               onClick={() => handleNumber()}
             >
-              Continuer
+              {language == "fr" ? "Continuer" : "استمرار"}
             </Button>
           </Box>
         </Container>
