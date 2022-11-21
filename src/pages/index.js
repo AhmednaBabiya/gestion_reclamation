@@ -69,7 +69,7 @@ const ReclamationCreate = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          //marginBottom: -98,
+          marginBottom: -28,
         }}
       >
         <img src="/static/LOGO-SEDAD.svg" style={{ maxWidth: "20%", height: "auto" }}></img>
