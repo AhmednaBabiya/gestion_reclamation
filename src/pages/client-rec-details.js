@@ -13,6 +13,8 @@ import {
 } from "@mui/material";
 import Router, { useRouter } from "next/router";
 import Head from "next/head";
+import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
+import InnerImageZoom from "react-inner-image-zoom";
 
 function ClientReclamationDetails() {
   let rec_id = localStorage.getItem("rec_id");
@@ -24,9 +26,16 @@ function ClientReclamationDetails() {
   const [photo, setPhoto] = useState("");
   const [description, setDescription] = useState("");
   const [created_at, setCreatedAt] = useState("");
+  const [last_update, setLastUpdate] = useState("");
   const [type, setType] = useState("");
   const [status, setStatus] = useState("");
   const [language, setLanguage] = useState(localStorage.getItem("language"));
+  const ar = {
+    fontFamily: "calibri",
+  };
+  const fr = {
+    fontFamily: "sans-serif",
+  };
 
   useEffect(() => {
     axios
@@ -43,6 +52,11 @@ function ClientReclamationDetails() {
         setPhoto(res.data.photo);
         setDescription(res.data.description);
         setCreatedAt(
+          res.data.created_at.split("T")[0] +
+            " " +
+            res.data.created_at.split("T")[1].split(".")[0].slice(0, -3)
+        );
+        setLastUpdate(
           res.data.created_at.split("T")[0] +
             " " +
             res.data.created_at.split("T")[1].split(".")[0].slice(0, -3)
@@ -71,10 +85,10 @@ function ClientReclamationDetails() {
   return (
     <>
       <Head>
-        <title>
+        <title style={localStorage.getItem("language") == "fr" ? fr : ar}>
           {language == "fr"
             ? "Details réclamation | Gestion de réclamations"
-            : "تفاصيل الشكوى | إدارة المطالبات"}
+            : "تفاصيل الشكوى | مصلحة الشكاوى"}
         </title>
       </Head>
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -90,7 +104,7 @@ function ClientReclamationDetails() {
         ) : (
           <Button size="large" onClick={handleArabe}>
             <img
-              style={{ width: 15, marginTop: 2, marginRight: 3 }}
+              style={{ width: 15, marginTop: 2, marginRight: 3, fontFamily: "calibri" }}
               src="/static/Flag-Mauritania.png"
             ></img>
             <a>العربية</a>
@@ -116,8 +130,9 @@ function ClientReclamationDetails() {
                     />
                   ) : (
                     <CardHeader
+                      titleTypographyProps={{ variant: "inherit" }}
                       dir="rtl"
-                      subheader="لا يمكنك إنشاء شكوى جديدة حتى يتم تصحيح آخر شكوى"
+                      subheader="لا يمكنك إنشاء شكوى جديدة حتى تتم معالجة آخر شكوى"
                       title="تفاصيل الشكوى الأخيرة"
                     />
                   )}
@@ -127,6 +142,7 @@ function ClientReclamationDetails() {
                     <Grid container spacing={3}>
                       <Grid item md={6} xs={12}>
                         <TextField
+                          InputLabelProps={{ style: { fontFamily: "calibri" } }}
                           fullWidth
                           disabled
                           label={language == "fr" ? "Nom" : "الاسم"}
@@ -137,6 +153,7 @@ function ClientReclamationDetails() {
                       </Grid>
                       <Grid item md={6} xs={12}>
                         <TextField
+                          InputLabelProps={{ style: { fontFamily: "calibri" } }}
                           fullWidth
                           disabled
                           label={language == "fr" ? "Numéro de téléphone" : "رقم الهاتف"}
@@ -147,6 +164,7 @@ function ClientReclamationDetails() {
                       </Grid>
                       <Grid item md={6} xs={12}>
                         <TextField
+                          InputLabelProps={{ style: { fontFamily: "calibri" } }}
                           fullWidth
                           disabled
                           label={language == "fr" ? "NNI" : "رقم الهوية الوطنية"}
@@ -157,6 +175,7 @@ function ClientReclamationDetails() {
                       </Grid>
                       <Grid item md={6} xs={12}>
                         <TextField
+                          InputLabelProps={{ style: { fontFamily: "calibri" } }}
                           fullWidth
                           disabled
                           label={language == "fr" ? "Date de création" : "تاريخ الإنشاء"}
@@ -167,6 +186,7 @@ function ClientReclamationDetails() {
                       </Grid>
                       <Grid item md={6} xs={12}>
                         <TextField
+                          InputLabelProps={{ style: { fontFamily: "calibri" } }}
                           fullWidth
                           disabled
                           label={language == "fr" ? "Type de réclamation" : "نوع الشكوى"}
@@ -177,6 +197,7 @@ function ClientReclamationDetails() {
                       </Grid>
                       <Grid item md={6} xs={12}>
                         <TextField
+                          InputLabelProps={{ style: { fontFamily: "calibri" } }}
                           fullWidth
                           disabled
                           label={language == "fr" ? "Statut de la réclamation" : "حالة الشكوى"}
@@ -187,18 +208,33 @@ function ClientReclamationDetails() {
                       </Grid>
                       <Grid item md={6} xs={12}>
                         <TextField
+                          InputLabelProps={{ style: { fontFamily: "calibri" } }}
                           fullWidth
                           disabled
                           label={language == "fr" ? "Description" : "وصف الشكوى"}
                           name="description"
                           multiline
-                          onChange={(e) => setDescription(e.target.value)}
                           value={description}
                           variant="outlined"
                         />
                       </Grid>
                       <Grid item md={6} xs={12}>
-                        <div dir={language == "fr" ? null : "rtl"}>
+                        <TextField
+                          fullWidth
+                          disabled
+                          label={
+                            language == "fr" ? "Date du dernier mise à jour" : "تاريخ آخر تحديث"
+                          }
+                          name="customer_nni_number"
+                          value={last_update}
+                          variant="outlined"
+                        />
+                      </Grid>
+                      <Grid item md={6} xs={12}>
+                        <div
+                          style={localStorage.getItem("language") == "fr" ? fr : ar}
+                          dir={language == "fr" ? null : "rtl"}
+                        >
                           <a>{language == "fr" ? "Photo" : "الصورة"}</a>
                         </div>
                         <div
@@ -208,14 +244,17 @@ function ClientReclamationDetails() {
                             display: "flex",
                           }}
                         >
-                          <img
+                          <InnerImageZoom
                             src={photo}
                             style={{ maxHeight: 160, maxWidth: 300, width: 300 }}
-                          ></img>
+                          ></InnerImageZoom>
                         </div>
                       </Grid>
                       <Grid item md={6} xs={12}>
-                        <div dir={language == "fr" ? null : "rtl"}>
+                        <div
+                          style={localStorage.getItem("language") == "fr" ? fr : ar}
+                          dir={language == "fr" ? null : "rtl"}
+                        >
                           <a>{language == "fr" ? `Carte d'identité` : "الهوية الوطنية"}</a>
                         </div>
                         <a></a>
@@ -226,10 +265,10 @@ function ClientReclamationDetails() {
                             display: "flex",
                           }}
                         >
-                          <img
+                          <InnerImageZoom
                             src={identity_card}
                             style={{ maxHeight: 160, maxWidth: 300, width: 300 }}
-                          ></img>
+                          ></InnerImageZoom>
                         </div>
                       </Grid>
                     </Grid>
@@ -243,12 +282,22 @@ function ClientReclamationDetails() {
                     }}
                   >
                     {status === "Traitée" ? (
-                      <Button color="primary" variant="contained" onClick={handleCreate}>
-                        {language == "fr" ? "Créer une nouvelle réclamation" : "إنشاء مطالبة جديدة"}
+                      <Button
+                        style={localStorage.getItem("language") == "fr" ? fr : ar}
+                        color="primary"
+                        variant="contained"
+                        onClick={handleCreate}
+                      >
+                        {language == "fr" ? "Créer une nouvelle réclamation" : "إنشاء شكوى جديدة"}
                       </Button>
                     ) : (
-                      <Button color="primary" variant="contained" disabled>
-                        {language == "fr" ? "Créer une nouvelle réclamation" : "إنشاء مطالبة جديدة"}
+                      <Button
+                        style={localStorage.getItem("language") == "fr" ? fr : ar}
+                        color="primary"
+                        variant="contained"
+                        disabled
+                      >
+                        {language == "fr" ? "Créer une nouvelle réclamation" : "إنشاء شكوى جديدة"}
                       </Button>
                     )}
                   </Box>

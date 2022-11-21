@@ -36,6 +36,12 @@ const ClientReclamationCreate = () => {
   const [openError, setOpenError] = useState(false);
   const [state, setState] = useState(false);
   const [language, setLanguage] = useState(localStorage.getItem("language"));
+  const ar = {
+    fontFamily: "calibri",
+  };
+  const fr = {
+    fontFamily: "sans-serif",
+  };
   let form_data = new FormData();
   useEffect(() => {
     localStorage.setItem("language", language);
@@ -97,13 +103,13 @@ const ClientReclamationCreate = () => {
   const handleArabe = () => {
     setLanguage("ar");
   };
-  console.log("createlanguage", language);
   return (
     <>
       <Head>
-        <title>{language == "fr" ? "BMI | Gestion de réclamation" : "BMI | إدارة الشكاوى"}</title>
+        <title style={localStorage.getItem("language") == "fr" ? fr : ar}>
+          {language == "fr" ? "BMI | Gestion de réclamation" : "BMI | مصلحة الشكاوى"}
+        </title>
       </Head>
-      {/* <Header language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} /> */}
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
         <img src="/static/LOGO-SEDAD.svg" style={{ maxWidth: "20%", height: "auto" }}></img>
         {language == "ar" ? (
@@ -117,7 +123,7 @@ const ClientReclamationCreate = () => {
         ) : (
           <Button size="large" onClick={handleArabe}>
             <img
-              style={{ width: 15, marginTop: 2, marginRight: 3 }}
+              style={{ width: 15, marginTop: 2, marginRight: 3, fontFamily: "calibri" }}
               src="/static/Flag-Mauritania.png"
             ></img>
             <a>العربية</a>
@@ -136,14 +142,20 @@ const ClientReclamationCreate = () => {
         <Container maxWidth="sm">
           <form onSubmit={formik.handleSubmit}>
             <Box sx={{ my: 3 }}>
-              <Typography dir={language == "fr" ? null : "rtl"} color="textPrimary" variant="h4">
-                {language == "fr" ? "Réclamations" : "إدارة الشكاوى"}
+              <Typography
+                style={localStorage.getItem("language") == "fr" ? fr : ar}
+                dir={language == "fr" ? null : "rtl"}
+                color="textPrimary"
+                variant="h4"
+              >
+                {language == "fr" ? "Réclamations" : "مصلحة الشكاوى"}
               </Typography>
               <Typography
                 dir={language == "fr" ? null : "rtl"}
                 color="textSecondary"
                 gutterBottom
                 variant="body2"
+                style={localStorage.getItem("language") == "fr" ? fr : ar}
               >
                 {language == "fr"
                   ? "Veuillez remplir le formulaire ci-dessous afin de créer votre réclamation"
@@ -151,6 +163,7 @@ const ClientReclamationCreate = () => {
               </Typography>
             </Box>
             <TextField
+              InputLabelProps={{ style: { fontFamily: "calibri" } }}
               dir={language == "fr" ? null : "rtl"}
               error={Boolean(formik.touched.name && formik.errors.name)}
               fullWidth
@@ -165,6 +178,7 @@ const ClientReclamationCreate = () => {
             />
             <TextField
               dir={language == "fr" ? null : "rtl"}
+              InputLabelProps={{ style: { fontFamily: "calibri" } }}
               error={Boolean(formik.touched.phone && formik.errors.phone)}
               fullWidth
               helperText={formik.touched.phone && formik.errors.phone}
@@ -178,6 +192,7 @@ const ClientReclamationCreate = () => {
             />
             <TextField
               dir={language == "fr" ? null : "rtl"}
+              InputLabelProps={{ style: { fontFamily: "calibri" } }}
               error={Boolean(formik.touched.nni && formik.errors.nni)}
               fullWidth
               helperText={formik.touched.nni && formik.errors.nni}
@@ -191,6 +206,7 @@ const ClientReclamationCreate = () => {
             />
             <TextField
               dir={language == "fr" ? null : "rtl"}
+              InputLabelProps={{ style: { fontFamily: "calibri" } }}
               error={Boolean(formik.touched.description && formik.errors.description)}
               fullWidth
               multiline
@@ -204,8 +220,11 @@ const ClientReclamationCreate = () => {
               variant="outlined"
             />
             <FormControl fullWidth style={{ marginTop: 15 }}>
-              <InputLabel>{language == "fr" ? "Type du réclamation" : "نوع الشكوى"}</InputLabel>
+              <InputLabel style={{ fontFamily: "calibri" }}>
+                {language == "fr" ? "Type du réclamation" : "نوع الشكوى"}
+              </InputLabel>
               <Select
+                style={localStorage.getItem("language") == "fr" ? fr : ar}
                 required
                 dir={language == "fr" ? null : "rtl"}
                 labelId="type"
@@ -214,22 +233,46 @@ const ClientReclamationCreate = () => {
                 onChange={formik.handleChange}
                 value={formik.values.type}
               >
-                <MenuItem value="Activation" dir={language == "fr" ? null : "rtl"}>
+                <MenuItem
+                  style={{ fontFamily: "calibri" }}
+                  value="Activation"
+                  dir={language == "fr" ? null : "rtl"}
+                >
                   {language == "fr" ? "Activation" : "التفعيل"}
                 </MenuItem>
-                <MenuItem value="Changement de téléphone" dir={language == "fr" ? null : "rtl"}>
+                <MenuItem
+                  style={{ fontFamily: "calibri" }}
+                  value="Changement de téléphone"
+                  dir={language == "fr" ? null : "rtl"}
+                >
                   {language == "fr" ? "Changement de téléphone" : "تغيير الهاتف"}
                 </MenuItem>
-                <MenuItem value="Déblocage" dir={language == "fr" ? null : "rtl"}>
+                <MenuItem
+                  style={{ fontFamily: "calibri" }}
+                  value="Déblocage"
+                  dir={language == "fr" ? null : "rtl"}
+                >
                   {language == "fr" ? "Déblocage" : "الغاء القفل"}
                 </MenuItem>
-                <MenuItem value="Changement de mot de passe" dir={language == "fr" ? null : "rtl"}>
+                <MenuItem
+                  style={{ fontFamily: "calibri" }}
+                  value="Changement de mot de passe"
+                  dir={language == "fr" ? null : "rtl"}
+                >
                   {language == "fr" ? "Changement de mot de passe" : "تغيير كلمة السر"}
                 </MenuItem>
-                <MenuItem value="Virements" dir={language == "fr" ? null : "rtl"}>
+                <MenuItem
+                  style={{ fontFamily: "calibri" }}
+                  value="Virements"
+                  dir={language == "fr" ? null : "rtl"}
+                >
                   {language == "fr" ? "Virements" : "التحويلات"}
                 </MenuItem>
-                <MenuItem value="Autres" dir={language == "fr" ? null : "rtl"}>
+                <MenuItem
+                  style={{ fontFamily: "calibri" }}
+                  value="Autres"
+                  dir={language == "fr" ? null : "rtl"}
+                >
                   {language == "fr" ? "Autres" : "آخر"}
                 </MenuItem>
               </Select>
@@ -247,6 +290,7 @@ const ClientReclamationCreate = () => {
                     />
                     <br />
                     <Button
+                      style={localStorage.getItem("language") == "fr" ? fr : ar}
                       color="primary"
                       size="small"
                       variant="contained"
@@ -260,7 +304,9 @@ const ClientReclamationCreate = () => {
                   {language == "fr" ? (
                     <InputLabel style={{ marginRight: 93, marginTop: 9 }}>Photo</InputLabel>
                   ) : (
-                    <InputLabel style={{ marginLeft: 93, marginTop: 9 }}>الصورة</InputLabel>
+                    <InputLabel style={{ marginLeft: 93, marginTop: 9, fontFamily: "calibri" }}>
+                      الصورة
+                    </InputLabel>
                   )}
 
                   <Input
@@ -284,6 +330,7 @@ const ClientReclamationCreate = () => {
                     />
                     <br />
                     <Button
+                      style={localStorage.getItem("language") == "fr" ? fr : ar}
                       color="primary"
                       size="small"
                       variant="contained"
@@ -302,7 +349,9 @@ const ClientReclamationCreate = () => {
                       Carte d&apos;identité
                     </InputLabel>
                   ) : (
-                    <InputLabel style={{ marginLeft: 45, marginTop: 9 }}>الهوية الوطنية</InputLabel>
+                    <InputLabel style={{ marginLeft: 45, marginTop: 9, fontFamily: "calibri" }}>
+                      الهوية الوطنية
+                    </InputLabel>
                   )}
                   <Input
                     required
@@ -318,6 +367,7 @@ const ClientReclamationCreate = () => {
             </div>
             <Box sx={{ py: 2 }}>
               <LoadingButton
+                style={localStorage.getItem("language") == "fr" ? fr : ar}
                 color="primary"
                 fullWidth
                 loading={state}
@@ -334,7 +384,11 @@ const ClientReclamationCreate = () => {
         </Container>
       </Box>
       <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
-        <Alert onClose={handleCloseError} severity="error">
+        <Alert
+          onClose={handleCloseError}
+          severity="error"
+          style={localStorage.getItem("language") == "fr" ? fr : ar}
+        >
           {language == "fr"
             ? "Erreur lors de la création de votre réclamation, Veuillez vous assurer d'avoir les champs necéssaires"
             : "خطأ عند إنشاء الشكوى ، يرجى التأكد من ملء الحقول اللازمة"}
@@ -346,7 +400,11 @@ const ClientReclamationCreate = () => {
         onClose={handleCloseSuccess}
         style={{ color: "#AB334B", textAlign: "center" }}
       >
-        <Alert onClose={handleCloseSuccess} severity="success">
+        <Alert
+          onClose={handleCloseSuccess}
+          severity="success"
+          style={localStorage.getItem("language") == "fr" ? fr : ar}
+        >
           {language == "fr" ? "Votre réclamation a été crée avec succès" : "تم إنشاء الشكوى بنجاح"}
         </Alert>
       </Snackbar>

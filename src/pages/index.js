@@ -10,8 +10,13 @@ import * as Yup from "yup";
 const ReclamationCreate = () => {
   const baseURL = "https://reclamation.bmi.mr:8000/backend/reclamation-list/";
   const [reclamations, setReclamations] = useState([]);
-  const [filler, setFiller] = useState(true);
   localStorage.setItem("language", "fr");
+  const ar = {
+    fontFamily: "calibri",
+  };
+  const fr = {
+    fontFamily: "sans-serif",
+  };
   const [language, setLanguage] = useState(localStorage.getItem("language"));
   let match = false;
   console.log("homelang : ", language);
@@ -62,7 +67,7 @@ const ReclamationCreate = () => {
   return (
     <>
       <Head>
-        <title>BMI | Gestion de réclamation</title>
+        <title>{language == "fr" ? "BMI | Gestion de réclamation" : "BMI | مصلحة الشكاوى"}</title>
       </Head>
       <div
         style={{
@@ -84,7 +89,7 @@ const ReclamationCreate = () => {
         ) : (
           <Button size="large" onClick={() => handleArabe()}>
             <img
-              style={{ width: 15, marginTop: 2, marginRight: 3 }}
+              style={{ width: 15, marginTop: 2, marginRight: 3, fontFamily: "calibri" }}
               src="/static/Flag-Mauritania.png"
             ></img>
             <a>العربية</a>
@@ -107,8 +112,13 @@ const ReclamationCreate = () => {
                 Gestion de réclamations
               </Typography>
             ) : (
-              <Typography dir="rtl" color="textPrimary" variant="h4">
-                إدارة الشكاوى
+              <Typography
+                dir="rtl"
+                color="textPrimary"
+                variant="h4"
+                style={{ fontFamily: "calibri" }}
+              >
+                مصلحة الشكاوى
               </Typography>
             )}
             {language == "fr" ? (
@@ -117,14 +127,21 @@ const ReclamationCreate = () => {
                 Veuillez entrer votre numéro de téléphone afin de poursuivre`}
               </Typography>
             ) : (
-              <Typography dir="rtl" color="textSecondary" gutterBottom variant="body2">
-                {`مرحبًا بكم في إدارة الشكاوى BMI.\n الرجاء إدخال رقم هاتفك للمتابعة`}
+              <Typography
+                dir="rtl"
+                color="textSecondary"
+                gutterBottom
+                variant="body2"
+                style={{ fontFamily: "calibri" }}
+              >
+                {`مرحبًا بكم في مصلحة الشكاوى "SEDAD".\n الرجاء إدخال رقم هاتفك للمتابعة`}
               </Typography>
             )}
           </Box>
           <form onSubmit={formik.handleSubmit}>
             <FormControl fullWidth>
               <TextField
+                style={{ fontFamily: "calibri" }}
                 fullWidth
                 error={Boolean(formik.touched.phone && formik.errors.phone)}
                 required
@@ -141,7 +158,14 @@ const ReclamationCreate = () => {
             </FormControl>
 
             <Box sx={{ py: 2 }}>
-              <Button color="primary" fullWidth size="large" variant="contained" type="submit">
+              <Button
+                color="primary"
+                fullWidth
+                size="large"
+                variant="contained"
+                type="submit"
+                style={localStorage.getItem("language") == "fr" ? fr : ar}
+              >
                 {language == "fr" ? "Continuer" : "استمرار"}
               </Button>
             </Box>

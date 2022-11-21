@@ -19,6 +19,8 @@ import {
 import Router, { useRouter } from "next/router";
 import Head from "next/head";
 import { DashboardLayout } from "../../components/dashboard-layout";
+import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
+import InnerImageZoom from "react-inner-image-zoom";
 
 function ReclamationDetails() {
   const router = useRouter();
@@ -209,10 +211,10 @@ function ReclamationDetails() {
                             display: "flex",
                           }}
                         >
-                          <img
+                          <InnerImageZoom
                             src={photo}
                             style={{ maxHeight: 160, maxWidth: 300, width: 300 }}
-                          ></img>
+                          ></InnerImageZoom>
                         </div>
                       </Grid>
                       <Grid item md={6} xs={12}>
@@ -224,10 +226,10 @@ function ReclamationDetails() {
                             display: "flex",
                           }}
                         >
-                          <img
+                          <InnerImageZoom
                             src={identity_card}
                             style={{ maxHeight: 160, maxWidth: 300, width: 300 }}
-                          ></img>
+                          ></InnerImageZoom>
                         </div>
                       </Grid>
                     </Grid>
