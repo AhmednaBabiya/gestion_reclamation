@@ -26,7 +26,7 @@ function ClientReclamationDetails() {
   const [created_at, setCreatedAt] = useState("");
   const [type, setType] = useState("");
   const [status, setStatus] = useState("");
-  const [language, setLanguage] = useState("ar");
+  const [language, setLanguage] = useState(localStorage.getItem("language"));
 
   useEffect(() => {
     axios
@@ -54,9 +54,18 @@ function ClientReclamationDetails() {
         console.log("error message", err);
       });
   }, []);
+  useEffect(() => {
+    localStorage.setItem("language", language);
+  }, [language]);
 
   const handleCreate = () => {
     Router.push("/client-rec-create");
+  };
+  const handleFrench = () => {
+    setLanguage("fr");
+  };
+  const handleArabe = () => {
+    setLanguage("ar");
   };
 
   return (
@@ -68,6 +77,26 @@ function ClientReclamationDetails() {
             : "تفاصيل الشكوى | إدارة المطالبات"}
         </title>
       </Head>
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <img src="/static/LOGO-SEDAD.svg" style={{ maxWidth: "20%", height: "auto" }}></img>
+        {language == "ar" ? (
+          <Button size="large" onClick={handleFrench}>
+            <a>Français</a>
+            <img
+              style={{ width: 15, marginTop: 2, marginLeft: 3 }}
+              src="/static/Flag-France.png"
+            ></img>
+          </Button>
+        ) : (
+          <Button size="large" onClick={handleArabe}>
+            <img
+              style={{ width: 15, marginTop: 2, marginRight: 3 }}
+              src="/static/flag-mauritania.png"
+            ></img>
+            <a>العربية</a>
+          </Button>
+        )}
+      </div>
       <Box
         component="main"
         sx={{

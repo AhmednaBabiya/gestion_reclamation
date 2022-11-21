@@ -17,10 +17,12 @@ import {
   Input,
 } from "@mui/material";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import LoadingButton from "@mui/lab/LoadingButton";
+import SendIcon from "@mui/icons-material/Send";
+import Header from "../components/header";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />; //
@@ -33,8 +35,11 @@ const ClientReclamationCreate = () => {
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [state, setState] = useState(false);
-  const [language, setLanguage] = useState("ar");
+  const [language, setLanguage] = useState(localStorage.getItem("language"));
   let form_data = new FormData();
+  useEffect(() => {
+    localStorage.setItem("language", language);
+  }, [language]);
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -86,12 +91,39 @@ const ClientReclamationCreate = () => {
     }
     setOpenError(false);
   };
-  console.log("state : ", state);
+  const handleFrench = () => {
+    setLanguage("fr");
+  };
+  const handleArabe = () => {
+    setLanguage("ar");
+  };
+  console.log("createlanguage", language);
   return (
     <>
       <Head>
         <title>{language == "fr" ? "BMI | Gestion de réclamation" : "BMI | إدارة الشكاوى"}</title>
       </Head>
+      {/* <Header language={language} setLanguage={(newLanguage) => setLanguage(newLanguage)} /> */}
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <img src="/static/LOGO-SEDAD.svg" style={{ maxWidth: "20%", height: "auto" }}></img>
+        {language == "ar" ? (
+          <Button size="large" onClick={handleFrench}>
+            <a>Français</a>
+            <img
+              style={{ width: 15, marginTop: 2, marginLeft: 3 }}
+              src="/static/Flag-France.png"
+            ></img>
+          </Button>
+        ) : (
+          <Button size="large" onClick={handleArabe}>
+            <img
+              style={{ width: 15, marginTop: 2, marginRight: 3 }}
+              src="/static/flag-mauritania.png"
+            ></img>
+            <a>العربية</a>
+          </Button>
+        )}
+      </div>
       <Box
         component="main"
         sx={{
@@ -102,11 +134,6 @@ const ClientReclamationCreate = () => {
         }}
       >
         <Container maxWidth="sm">
-          {/* <NextLink href="/reclamations" passHref>
-            <Button component="a" startIcon={<ArrowBackIcon fontSize="small" />}>
-              Dashboard
-            </Button>
-          </NextLink> */}
           <form onSubmit={formik.handleSubmit}>
             <Box sx={{ my: 3 }}>
               <Typography dir={language == "fr" ? null : "rtl"} color="textPrimary" variant="h4">
@@ -297,6 +324,7 @@ const ClientReclamationCreate = () => {
                 size="large"
                 type="submit"
                 loadingPosition={language == "fr" ? "end" : "start"}
+                endIcon={<SendIcon />}
                 variant="contained"
               >
                 {language == "fr" ? "Créer la réclamation" : "إنشاء الشكوى"}
@@ -325,5 +353,4 @@ const ClientReclamationCreate = () => {
     </>
   );
 };
-
 export default ClientReclamationCreate;
