@@ -11,6 +11,7 @@ const ReclamationCreate = () => {
   const baseURL = "https://reclamation.bmi.mr:8000/backend/reclamation-list/";
   const [reclamations, setReclamations] = useState([]);
   const [filler, setFiller] = useState(true);
+  localStorage.setItem("language", "fr");
   const [language, setLanguage] = useState(localStorage.getItem("language"));
   let match = false;
   console.log("homelang : ", language);
@@ -68,7 +69,7 @@ const ReclamationCreate = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          marginBottom: -98,
+          //marginBottom: -98,
         }}
       >
         <img src="/static/LOGO-SEDAD.svg" style={{ maxWidth: "20%", height: "auto" }}></img>
@@ -84,7 +85,7 @@ const ReclamationCreate = () => {
           <Button size="large" onClick={() => handleArabe()}>
             <img
               style={{ width: 15, marginTop: 2, marginRight: 3 }}
-              src="/static/flag-mauritania.png"
+              src="/static/Flag-Mauritania.png"
             ></img>
             <a>العربية</a>
           </Button>

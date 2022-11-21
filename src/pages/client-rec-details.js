@@ -91,7 +91,7 @@ function ClientReclamationDetails() {
           <Button size="large" onClick={handleArabe}>
             <img
               style={{ width: 15, marginTop: 2, marginRight: 3 }}
-              src="/static/flag-mauritania.png"
+              src="/static/Flag-Mauritania.png"
             ></img>
             <a>العربية</a>
           </Button>
