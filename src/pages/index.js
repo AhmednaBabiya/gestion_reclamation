@@ -10,14 +10,14 @@ import * as Yup from "yup";
 const ReclamationCreate = () => {
   const baseURL = "https://reclamation.bmi.mr:8000/backend/reclamation-list/";
   const [reclamations, setReclamations] = useState([]);
-  localStorage.setItem("language", "fr");
+  //localStorage.setItem("language", "fr");
   const ar = {
     fontFamily: "calibri",
   };
   const fr = {
     fontFamily: "sans-serif",
   };
-  const [language, setLanguage] = useState(localStorage.getItem("language"));
+  const [language, setLanguage] = useState("fr");
   let match = false;
   console.log("homelang : ", language);
   useEffect(() => {
