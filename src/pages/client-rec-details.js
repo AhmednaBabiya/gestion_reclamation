@@ -143,6 +143,7 @@ function ClientReclamationDetails() {
                       <Grid item md={6} xs={12}>
                         <TextField
                           InputLabelProps={{ style: { fontFamily: "calibri" } }}
+                          InputProps={{ style: { fontFamily: "calibri" } }}
                           fullWidth
                           disabled
                           label={language == "fr" ? "Nom" : "الاسم"}
@@ -154,6 +155,7 @@ function ClientReclamationDetails() {
                       <Grid item md={6} xs={12}>
                         <TextField
                           InputLabelProps={{ style: { fontFamily: "calibri" } }}
+                          InputProps={{ style: { fontFamily: "calibri" } }}
                           fullWidth
                           disabled
                           label={language == "fr" ? "Numéro de téléphone" : "رقم الهاتف"}
@@ -165,6 +167,7 @@ function ClientReclamationDetails() {
                       <Grid item md={6} xs={12}>
                         <TextField
                           InputLabelProps={{ style: { fontFamily: "calibri" } }}
+                          InputProps={{ style: { fontFamily: "calibri" } }}
                           fullWidth
                           disabled
                           label={language == "fr" ? "NNI" : "رقم الهوية الوطنية"}
@@ -176,6 +179,7 @@ function ClientReclamationDetails() {
                       <Grid item md={6} xs={12}>
                         <TextField
                           InputLabelProps={{ style: { fontFamily: "calibri" } }}
+                          InputProps={{ style: { fontFamily: "calibri" } }}
                           fullWidth
                           disabled
                           label={language == "fr" ? "Date de création" : "تاريخ الإنشاء"}
@@ -187,22 +191,35 @@ function ClientReclamationDetails() {
                       <Grid item md={6} xs={12}>
                         <TextField
                           InputLabelProps={{ style: { fontFamily: "calibri" } }}
+                          InputProps={{ style: { fontFamily: "calibri" } }}
                           fullWidth
                           disabled
                           label={language == "fr" ? "Type de réclamation" : "نوع الشكوى"}
                           name="type"
-                          value={type}
+                          value={
+                            (type == "Changement de mot de passe" && "تغيير كلمة السر") ||
+                            (type == "Déblocage" && "الغاء القفل") ||
+                            (type == "Changement de téléphone" && "تغيير الهاتف") ||
+                            (type == "Activation" && "التفعيل") ||
+                            (type == "Virements" && "التحويلات") ||
+                            (type == "Autres" && "آخر")
+                          }
                           variant="outlined"
                         />
                       </Grid>
                       <Grid item md={6} xs={12}>
                         <TextField
                           InputLabelProps={{ style: { fontFamily: "calibri" } }}
+                          InputProps={{ style: { fontFamily: "calibri" } }}
                           fullWidth
                           disabled
                           label={language == "fr" ? "Statut de la réclamation" : "حالة الشكوى"}
                           name="status"
-                          value={status}
+                          value={
+                            (status == "Pas encore traitée" && "لم تتم معالجتها بعد") ||
+                            (status == "En cours de traitement" && "يتم معالجتها") ||
+                            (status == "Traitée" && "تمت معالجتها")
+                          }
                           variant="outlined"
                         />
                       </Grid>

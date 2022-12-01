@@ -19,7 +19,6 @@ const ReclamationCreate = () => {
   };
   const [language, setLanguage] = useState("fr");
   let match = false;
-  console.log("homelang : ", language);
   useEffect(() => {
     axios
       .get(baseURL, {
@@ -40,13 +39,18 @@ const ReclamationCreate = () => {
   const formik = useFormik({
     initialValues: {
       phone: "",
+      phoneAR: "",
     },
     validationSchema: Yup.object({
-      phone: Yup.string().length(8).required("Le numéro du téléphone est requis"),
+      phone: Yup.string().length(8, "Le numéro doit etre composé de 8 chiffres"),
+      phoneAR: Yup.string().length(8, "يجب أن يتكون رقم الهاتف من 8 أرقام"),
     }),
     onSubmit: () => {
       reclamations.map((r) => {
-        if (r.customer_phone_number == formik.values.phone) {
+        if (
+          r.customer_phone_number == formik.values.phone ||
+          r.customer_phone_number == formik.values.phoneAR
+        ) {
           localStorage.setItem("rec_id", r.id);
           match = true;
         }
@@ -58,11 +62,16 @@ const ReclamationCreate = () => {
       }
     },
   });
+  console.log("phone : ", formik.values.phone);
+  console.log("phoneAR : ", formik.values.phoneAR);
+  console.log("match : ", match);
   const handleFrench = () => {
     setLanguage("fr");
+    formik.values.phoneAR = "";
   };
   const handleArabe = () => {
     setLanguage("ar");
+    formik.values.phone = "";
   };
   return (
     <>
@@ -140,21 +149,39 @@ const ReclamationCreate = () => {
           </Box>
           <form onSubmit={formik.handleSubmit}>
             <FormControl fullWidth>
-              <TextField
-                style={{ fontFamily: "calibri" }}
-                fullWidth
-                error={Boolean(formik.touched.phone && formik.errors.phone)}
-                required
-                helperText={formik.touched.phone && formik.errors.phone}
-                label={language == "fr" ? "Numéro téléphone" : "رقم الهاتف"}
-                margin="normal"
-                name="phone"
-                type="text"
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                value={formik.values.phone}
-                variant="outlined"
-              />
+              {language == "fr" ? (
+                <TextField
+                  InputLabelProps={{ style: { fontFamily: "calibri" } }}
+                  fullWidth
+                  required
+                  error={Boolean(formik.touched.phone && formik.errors.phone)}
+                  helperText={formik.touched.phone && formik.errors.phone}
+                  label={language == "fr" ? "Numéro téléphone" : "رقم الهاتف"}
+                  margin="normal"
+                  name="phone"
+                  type="number"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  value={formik.values.phone}
+                  variant="outlined"
+                />
+              ) : (
+                <TextField
+                  InputLabelProps={{ style: { fontFamily: "calibri" } }}
+                  fullWidth
+                  required
+                  error={Boolean(formik.touched.phoneAR && formik.errors.phoneAR)}
+                  helperText={formik.touched.phoneAR && formik.errors.phoneAR}
+                  label={language == "fr" ? "Numéro téléphone" : "رقم الهاتف"}
+                  margin="normal"
+                  name="phoneAR"
+                  type="number"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  value={formik.values.phoneAR}
+                  variant="outlined"
+                />
+              )}
             </FormControl>
 
             <Box sx={{ py: 2 }}>

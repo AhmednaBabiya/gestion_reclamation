@@ -50,25 +50,34 @@ const ClientReclamationCreate = () => {
     initialValues: {
       name: "",
       phone: "",
+      phoneAR: "",
       nni: "",
+      nniAR: "",
       description: "",
       type: "",
     },
     validationSchema: Yup.object({
-      name: Yup.string().max(255).required("Le nom est requis"),
-      phone: Yup.string().length(8).required("Le numéro du téléphone est requis"),
-      nni: Yup.string().length(10).required("Le NNI est requis"),
-      type: Yup.string().max(255).required("Le type est requis"),
+      name: Yup.string().max(255),
+      phone: Yup.string().length(8, "Le numéro doit etre composé de 8 chiffres"),
+      phoneAR: Yup.string().length(8, "يجب أن يتكون رقم الهاتف من 8 أرقام"),
+      nni: Yup.string().length(10, "Le NNI doit etre composé de 10 chiffres"),
+      nniAR: Yup.string().length(10, "يجب أن يتكون الرقم الوطني للتعريف من 10 أرقام"),
+      type: Yup.string().max(255),
     }),
     onSubmit: () => {
       setState(true);
       form_data.append("customer_name", formik.values.name);
-      form_data.append("customer_phone_number", formik.values.phone);
-      form_data.append("customer_nni_number", formik.values.nni);
       form_data.append("identity_card", client_identity, client_identity.name);
       form_data.append("photo", client_photo, client_photo.name);
       form_data.append("description", formik.values.description);
       form_data.append("type", formik.values.type);
+      if (language == "fr") {
+        form_data.append("customer_phone_number", formik.values.phone);
+        form_data.append("customer_nni_number", formik.values.nni);
+      } else {
+        form_data.append("customer_phone_number", formik.values.phoneAR);
+        form_data.append("customer_nni_number", formik.values.nniAR);
+      }
       axios
         .post(baseURL, form_data, {
           "Content-Type": "application/json, multipart/form-data",
@@ -99,9 +108,13 @@ const ClientReclamationCreate = () => {
   };
   const handleFrench = () => {
     setLanguage("fr");
+    formik.values.phoneAR = "";
+    formik.values.nniAR = "";
   };
   const handleArabe = () => {
     setLanguage("ar");
+    formik.values.phone = "";
+    formik.values.nni = "";
   };
   return (
     <>
@@ -167,6 +180,7 @@ const ClientReclamationCreate = () => {
               dir={language == "fr" ? null : "rtl"}
               error={Boolean(formik.touched.name && formik.errors.name)}
               fullWidth
+              required
               helperText={formik.touched.name && formik.errors.name}
               label={language == "fr" ? "Nom" : "الاسم"}
               margin="normal"
@@ -176,34 +190,74 @@ const ClientReclamationCreate = () => {
               value={formik.values.name}
               variant="outlined"
             />
-            <TextField
-              dir={language == "fr" ? null : "rtl"}
-              InputLabelProps={{ style: { fontFamily: "calibri" } }}
-              error={Boolean(formik.touched.phone && formik.errors.phone)}
-              fullWidth
-              helperText={formik.touched.phone && formik.errors.phone}
-              label={language == "fr" ? "Numéro de téléphone" : "رقم الهاتف"}
-              margin="normal"
-              name="phone"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.phone}
-              variant="outlined"
-            />
-            <TextField
-              dir={language == "fr" ? null : "rtl"}
-              InputLabelProps={{ style: { fontFamily: "calibri" } }}
-              error={Boolean(formik.touched.nni && formik.errors.nni)}
-              fullWidth
-              helperText={formik.touched.nni && formik.errors.nni}
-              label={language == "fr" ? "Numéro NNI" : "رقم الهوية الوطنية"}
-              margin="normal"
-              name="nni"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.nni}
-              variant="outlined"
-            />
+            {language == "fr" ? (
+              <TextField
+                dir={language == "fr" ? null : "rtl"}
+                InputLabelProps={{ style: { fontFamily: "calibri" } }}
+                fullWidth
+                required
+                error={Boolean(formik.touched.phone && formik.errors.phone)}
+                helperText={formik.touched.phone && formik.errors.phone}
+                label={language == "fr" ? "Numéro téléphone" : "رقم الهاتف"}
+                margin="normal"
+                name="phone"
+                type="number"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                value={formik.values.phone}
+                variant="outlined"
+              />
+            ) : (
+              <TextField
+                dir={language == "fr" ? null : "rtl"}
+                InputLabelProps={{ style: { fontFamily: "calibri" } }}
+                fullWidth
+                required
+                error={Boolean(formik.touched.phoneAR && formik.errors.phoneAR)}
+                helperText={formik.touched.phoneAR && formik.errors.phoneAR}
+                label={language == "fr" ? "Numéro téléphone" : "رقم الهاتف"}
+                margin="normal"
+                name="phoneAR"
+                type="number"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                value={formik.values.phoneAR}
+                variant="outlined"
+              />
+            )}
+            {language == "fr" ? (
+              <TextField
+                dir={language == "fr" ? null : "rtl"}
+                InputLabelProps={{ style: { fontFamily: "calibri" } }}
+                error={Boolean(formik.touched.nni && formik.errors.nni)}
+                fullWidth
+                required
+                helperText={formik.touched.nni && formik.errors.nni}
+                label={language == "fr" ? "Numéro NNI" : "الرقم الوطني للتعريف"}
+                margin="normal"
+                name="nni"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                value={formik.values.nni}
+                variant="outlined"
+              />
+            ) : (
+              <TextField
+                dir={language == "fr" ? null : "rtl"}
+                InputLabelProps={{ style: { fontFamily: "calibri" } }}
+                error={Boolean(formik.touched.nniAR && formik.errors.nniAR)}
+                fullWidth
+                required
+                helperText={formik.touched.nniAR && formik.errors.nniAR}
+                label={language == "fr" ? "Numéro NNI" : "الرقم الوطني للتعريف"}
+                margin="normal"
+                name="nniAR"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                value={formik.values.nniAR}
+                variant="outlined"
+              />
+            )}
             <TextField
               dir={language == "fr" ? null : "rtl"}
               InputLabelProps={{ style: { fontFamily: "calibri" } }}
