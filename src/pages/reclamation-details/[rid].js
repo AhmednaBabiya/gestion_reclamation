@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   Box,
@@ -20,7 +20,13 @@ import Router, { useRouter } from "next/router";
 import Head from "next/head";
 import { DashboardLayout } from "../../components/dashboard-layout";
 import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 import InnerImageZoom from "react-inner-image-zoom";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />; //
+});
 
 function ReclamationDetails() {
   const router = useRouter();
@@ -37,6 +43,8 @@ function ReclamationDetails() {
   const [last_update, setLastUpdate] = useState("");
   const [type, setType] = useState("");
   const [status, setStatus] = useState("");
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openError, setOpenError] = useState(false);
 
   const handleSave = () => {
     axios
@@ -51,10 +59,11 @@ function ReclamationDetails() {
         }
       )
       .then((res) => {
-        Router.push("/reclamations");
+        setOpenSuccess(true);
       })
       .catch((err) => {
         console.log("error message", err);
+        setOpenError(true);
       });
   };
   useEffect(() => {
@@ -89,6 +98,19 @@ function ReclamationDetails() {
         console.log("error message", err);
       });
   }, []);
+  const handleCloseSuccess = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSuccess(false);
+    Router.push("/reclamations");
+  };
+  const handleCloseError = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenError(false);
+  };
 
   return (
     <>
@@ -252,6 +274,21 @@ function ReclamationDetails() {
           </Grid>
         </Container>
       </Box>
+      <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
+        <Alert onClose={handleCloseError} severity="error">
+          Erreur lors de la modification du statut!
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={openSuccess}
+        autoHideDuration={4000}
+        onClose={handleCloseSuccess}
+        style={{ color: "#AB334B", textAlign: "center" }}
+      >
+        <Alert onClose={handleCloseSuccess} severity="success">
+          Statut modifié avec succès!
+        </Alert>
+      </Snackbar>
     </>
   );
 }
