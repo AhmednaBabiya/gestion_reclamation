@@ -31,8 +31,6 @@ class ReclamationList(generics.ListAPIView):
     serializer_class = ReclamationSerializer
     permission_classes = [IsAuthenticated, IsAdminOrConsultant]
     pagination_class = ReclamationPagination
-    # filter_backends = [DjangoFilterBackend]
-    # filterset_fields = ['created_at','customer_name']
     filter_backends = [filters.SearchFilter]
     search_fields = ['customer_nni_number',
                      'customer_phone_number', 'customer_name', 'created_at']
