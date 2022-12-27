@@ -302,7 +302,7 @@ function ClientReclamationDetails() {
                       p: 2,
                     }}
                   >
-                    {status === "Traitée" ? (
+                    {status === "Clôturée" ? (
                       <Button
                         style={localStorage.getItem("language") == "fr" ? fr : ar}
                         color="primary"
