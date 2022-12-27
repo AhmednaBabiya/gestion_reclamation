@@ -25,7 +25,7 @@ import FileDownload from "js-file-download";
 
 export const CustomerListResults = () => {
   const baseURL = `https://reclamation.bmi.mr:8000/backend/reclamation-list/?search=`;
-  const downloadURL = "http://127.0.0.1:8000/backend/export-to-csv";
+  const downloadURL = "https://reclamation.bmi.mr:8000/backend/export-to-csv";
   const [rows_count, setRowsCount] = useState(null);
   const [reclamations_page, setReclamationsPage] = useState(1);
   const [rec_customers, setRecCustomers] = useState([]);
