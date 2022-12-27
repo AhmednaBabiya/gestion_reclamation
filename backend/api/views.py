@@ -1,5 +1,8 @@
 from email.policy import HTTP
+from django.http import HttpResponse
 import profile
+import csv
+import datetime
 from rest_framework import status, generics, mixins
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
@@ -11,6 +14,25 @@ from backend.models import Profile, Reclamation
 from backend.api.serializers import ProfileSerializer, ReclamationSerializer, ReclamationCreateSerializer
 # from django_filters.rest_framework import DjangoFilterBackend
 from backend.api.pagination import ReclamationPagination, ProfilePagination
+
+
+def export_to_csv(request):
+    reclamations = Reclamation.objects.all()
+    response = HttpResponse()
+    date = datetime.datetime.now()
+    date = date.strftime('%d-%m-%Y_%H:%M')
+    response['Content-Disposition'] = f'attachment; filename=reclamation_export {date}.csv'
+    writer = csv.writer(response)
+    writer.writerow(['Nom et prénom', 'Téléphone', 'NNI', 'Traitée par',
+                    'date de création', 'date du dernière modification', 'type', 'statut'])
+    reclamation_fields = reclamations.values_list(
+        'customer_name', 'customer_phone_number', 'customer_nni_number', 'updated_by', 'created_at', 'last_update', 'type', 'status')
+    for reclamation in reclamation_fields:
+        writer.writerow(reclamation)
+
+    # def dehydrate_created_at(self, obj):
+    #     return obj.created_at.strftime('%d-%m-%Y %H:%M:%S')
+    return response
 
 
 class ProfileList(generics.ListAPIView):
@@ -29,7 +51,7 @@ class ProfileDetails(generics.RetrieveUpdateDestroyAPIView):
 class ReclamationList(generics.ListAPIView):
     queryset = Reclamation.objects.all()
     serializer_class = ReclamationSerializer
-    permission_classes = [IsAuthenticated, IsAdminOrConsultant]
+    # permission_classes = [IsAuthenticated, IsAdminOrConsultant]
     pagination_class = ReclamationPagination
     filter_backends = [filters.SearchFilter]
     search_fields = ['customer_nni_number',
@@ -56,7 +78,6 @@ class ReclamationUpdateDetails(generics.RetrieveUpdateDestroyAPIView):
         reclamation = self.get_object()
         copy = request.data.copy()
         if copy['status'] == 'Traitée':
-            # request.data._mutable = True
             copy['updated_by'] = f'{user.first_name} {user.last_name}'
         serializer = ReclamationSerializer(
             reclamation, data=copy, partial=True, context={'request': request})
@@ -67,7 +88,7 @@ class ReclamationUpdateDetails(generics.RetrieveUpdateDestroyAPIView):
         return Response(serializer.data)
 
 
-@api_view(['GET', 'PUT'])
+@ api_view(['GET', 'PUT'])
 def current_profile_view(request):
     if request.method == 'GET':
         try:

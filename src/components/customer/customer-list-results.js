@@ -20,9 +20,12 @@ import {
 import axios from "axios";
 import { Search as SearchIcon } from "../../icons/search";
 import { SeverityPill } from "../severity-pill";
+import DownloadIcon from "@mui/icons-material/Download";
+import FileDownload from "js-file-download";
 
 export const CustomerListResults = () => {
   const baseURL = `https://reclamation.bmi.mr:8000/backend/reclamation-list/?search=`;
+  const downloadURL = "http://127.0.0.1:8000/backend/export-to-csv";
   const [rows_count, setRowsCount] = useState(null);
   const [reclamations_page, setReclamationsPage] = useState(1);
   const [rec_customers, setRecCustomers] = useState([]);
@@ -53,6 +56,23 @@ export const CustomerListResults = () => {
       type,
       status,
     };
+  };
+
+  const handleDownload = () => {
+    axios
+      .get(downloadURL, {
+        headers: {
+          "Content-Type": "text/html",
+        },
+      })
+      .then((res) => {
+        let date = new Date().toLocaleString() + "";
+        console.log("date : ", date);
+        FileDownload(res.data, `reclamation_export ${date}.csv`);
+      })
+      .catch((err) => {
+        console.log("error message", err);
+      });
   };
 
   useEffect(() => {
@@ -109,7 +129,7 @@ export const CustomerListResults = () => {
         <Box sx={{ mt: 3 }}>
           <Card>
             <CardContent>
-              <Box sx={{ maxWidth: 500 }}>
+              <Box sx={{ maxWidth: 500 }} style={{ display: "flex" }}>
                 <TextField
                   fullWidth
                   InputProps={{
@@ -124,6 +144,11 @@ export const CustomerListResults = () => {
                   placeholder="Rechercher par nom, nni, tél ou date"
                   variant="outlined"
                   onChange={(e) => setSearch(e.target.value)}
+                />
+                <DownloadIcon
+                  style={{ marginTop: 10, marginLeft: 12 }}
+                  fontSize="large"
+                  onClick={handleDownload}
                 />
               </Box>
             </CardContent>

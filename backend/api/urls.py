@@ -14,4 +14,5 @@ urlpatterns = [
          name='update or delete reclamation-details'),
     path('profile/me/', views.current_profile_view,
          name="retrieve current profile infos"),
+    path('export-to-csv', views.export_to_csv, name="export-to-csv"),
 ]

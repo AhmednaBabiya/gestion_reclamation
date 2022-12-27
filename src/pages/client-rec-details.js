@@ -197,12 +197,14 @@ function ClientReclamationDetails() {
                           label={language == "fr" ? "Type de réclamation" : "نوع الشكوى"}
                           name="type"
                           value={
-                            (type == "Changement de mot de passe" && "تغيير كلمة السر") ||
-                            (type == "Déblocage" && "الغاء القفل") ||
-                            (type == "Changement de téléphone" && "تغيير الهاتف") ||
-                            (type == "Activation" && "التفعيل") ||
-                            (type == "Virements" && "التحويلات") ||
-                            (type == "Autres" && "آخر")
+                            language == "fr"
+                              ? type
+                              : (type == "Changement de mot de passe" && "تغيير كلمة السر") ||
+                                (type == "Déblocage" && "الغاء القفل") ||
+                                (type == "Changement de téléphone" && "تغيير الهاتف") ||
+                                (type == "Activation" && "التفعيل") ||
+                                (type == "Virements" && "التحويلات") ||
+                                (type == "Autres" && "آخر")
                           }
                           variant="outlined"
                         />
@@ -216,9 +218,11 @@ function ClientReclamationDetails() {
                           label={language == "fr" ? "Statut de la réclamation" : "حالة الشكوى"}
                           name="status"
                           value={
-                            (status == "Pas encore traitée" && "لم تتم معالجتها بعد") ||
-                            (status == "En cours de traitement" && "يتم معالجتها") ||
-                            (status == "Traitée" && "تمت معالجتها")
+                            language == "fr"
+                              ? status
+                              : (status == "Pas encore traitée" && "لم تتم معالجتها بعد") ||
+                                (status == "En cours de traitement" && "يتم معالجتها") ||
+                                (status == "Traitée" && "تمت معالجتها")
                           }
                           variant="outlined"
                         />
