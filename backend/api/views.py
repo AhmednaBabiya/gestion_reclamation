@@ -54,13 +54,12 @@ class ReclamationUpdateDetails(generics.RetrieveUpdateDestroyAPIView):
     def update(self, request, pk):
         user = request.user
         reclamation = self.get_object()
+        copy = request.data.copy()
+        if copy['status'] == 'Traitée':
+            # request.data._mutable = True
+            copy['updated_by'] = f'{user.first_name} {user.last_name}'
         serializer = ReclamationSerializer(
-            reclamation, data=request.data, partial=True, context={'request': request})
-        if request.data['status'] == 'Traitée':
-            _mutable = request.data._mutable
-            request.data._mutable = True
-            request.data['updated_by'] = f'{user.first_name} {user.last_name}'
-            request.data._mutable = _mutable
+            reclamation, data=copy, partial=True, context={'request': request})
         if request.data['status'] == 'Clôturée' and user.is_super_admin == False:
             return Response({"Error": "you don't have permission"}, status=status.HTTP_401_UNAUTHORIZED)
         serializer.is_valid(raise_exception=True)
