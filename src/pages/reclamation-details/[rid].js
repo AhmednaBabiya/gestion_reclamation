@@ -32,6 +32,7 @@ function ReclamationDetails() {
   const router = useRouter();
   const { rid } = router.query;
   const reclamationURL = `https://reclamation.bmi.mr:8000/backend/reclamation/${rid}`;
+  const profileURL = "https://reclamation.bmi.mr:8000/backend/profile/me/";
   let tokenStr = localStorage.getItem("token");
   const [customer_name, setCustomerName] = useState("");
   const [customer_phone_number, setCustomerPhoneNumber] = useState("");
@@ -41,8 +42,10 @@ function ReclamationDetails() {
   const [description, setDescription] = useState("");
   const [created_at, setCreatedAt] = useState("");
   const [last_update, setLastUpdate] = useState("");
+  const [updated_by, setUpdated_by] = useState(null);
   const [type, setType] = useState("");
   const [status, setStatus] = useState("");
+  const [is_super_admin, setIsSuperAdmin] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
 
@@ -68,6 +71,21 @@ function ReclamationDetails() {
   };
   useEffect(() => {
     axios
+      .get(profileURL, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${tokenStr}`,
+        },
+      })
+      .then((res) => {
+        setIsSuperAdmin(res.data.is_super_admin);
+      })
+      .catch((err) => {
+        console.log("error message", err);
+      });
+  }, []);
+  useEffect(() => {
+    axios
       .get(reclamationURL, {
         headers: {
           "Content-Type": "application/json",
@@ -91,6 +109,7 @@ function ReclamationDetails() {
             " " +
             res.data.last_update.split("T")[1].split(".")[0].slice(0, -3)
         );
+        setUpdated_by(res.data.updated_by);
         setType(res.data.type);
         setStatus(res.data.status);
       })
@@ -181,11 +200,23 @@ function ReclamationDetails() {
                           fullWidth
                           disabled
                           label="date du dernière mis à jour"
-                          name="customer_nni_number"
+                          name="last_updated_at"
                           value={last_update}
                           variant="outlined"
                         />
                       </Grid>
+                      {updated_by && (
+                        <Grid item md={6} xs={12}>
+                          <TextField
+                            fullWidth
+                            disabled
+                            label="Traitée par"
+                            name="updated_by"
+                            value={updated_by}
+                            variant="outlined"
+                          />
+                        </Grid>
+                      )}
                       <Grid item md={6} xs={12}>
                         <TextField
                           fullWidth
@@ -198,19 +229,37 @@ function ReclamationDetails() {
                       </Grid>
                       <Grid item md={6} xs={12}>
                         <FormControl fullWidth>
-                          <InputLabel>Status</InputLabel>
-                          <Select
-                            fullWidth
-                            label="Status"
-                            onChange={(e) => setStatus(e.target.value)}
-                            value={status}
-                          >
-                            <MenuItem value="En cours de traitement">
-                              En cours de traitement
-                            </MenuItem>
-                            <MenuItem value="Traitée">Traitée</MenuItem>
-                            <MenuItem value="Pas encore traitée">Pas encore traitée</MenuItem>
-                          </Select>
+                          {status == "Clôturée" && is_super_admin == false ? (
+                            <Grid item md={6} xs={12}>
+                              <TextField
+                                fullWidth
+                                disabled
+                                label="status"
+                                name="status"
+                                value={status}
+                                variant="outlined"
+                              />
+                            </Grid>
+                          ) : (
+                            <>
+                              <InputLabel>Status</InputLabel>
+                              <Select
+                                fullWidth
+                                label="Status"
+                                onChange={(e) => setStatus(e.target.value)}
+                                value={status}
+                              >
+                                <MenuItem value="En cours de traitement">
+                                  En cours de traitement
+                                </MenuItem>
+                                <MenuItem value="Traitée">Traitée</MenuItem>
+                                <MenuItem value="Pas encore traitée">Pas encore traitée</MenuItem>
+                                {is_super_admin == true && (
+                                  <MenuItem value="Clôturée">Clôturée</MenuItem>
+                                )}
+                              </Select>
+                            </>
+                          )}
                         </FormControl>
                       </Grid>
                       <Grid item md={6} xs={12}>
