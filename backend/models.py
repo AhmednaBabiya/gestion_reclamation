@@ -42,6 +42,7 @@ class Profile(AbstractBaseUser):
     email = models.EmailField(max_length=255, unique=True)
     password = models.CharField(max_length=255)
     is_admin = models.BooleanField(default=False)
+    is_super_admin = models.BooleanField(default=False)
     is_consultant = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
 
@@ -71,6 +72,7 @@ class Reclamation(models.Model):
     identity_card = models.FileField(null=True)
     photo = models.FileField(null=True)
     description = models.TextField(null=True)
+    updated_by = models.CharField(max_length=255, null=True)
     TYPE_ACTIVATION = 'Activation'
     TYPE_PHONE = 'Changement de téléphone'
     TYPE_UNBLOCK = 'Déblocage'
@@ -81,11 +83,13 @@ class Reclamation(models.Model):
     STATUS_ON_GOING = 'En cours de traitement'
     STATUS_TREATED = 'Traitée'
     STATUS_NOT_TREATED = 'Pas encore traitée'
+    STATUS_CLOSED = 'Clôturée'
 
     STATUS_CHOICES = [
         (STATUS_ON_GOING, 'En cours de traitement'),
         (STATUS_TREATED, 'Traitée'),
-        (STATUS_NOT_TREATED, 'Pas encore traitée')
+        (STATUS_NOT_TREATED, 'Pas encore traitée'),
+        (STATUS_CLOSED, 'Clôturée')
     ]
 
     TYPE_CHOICES = [
