@@ -16,8 +16,12 @@ from backend.api.serializers import ProfileSerializer, ReclamationSerializer, Re
 from backend.api.pagination import ReclamationPagination, ProfilePagination
 
 
+@api_view(['POST'])
 def export_to_csv(request):
-    reclamations = Reclamation.objects.all()
+    begin_date = request.data['begin_date']
+    end_date = request.data['end_date']
+    reclamations = Reclamation.objects.filter(
+        created_at__range=[begin_date, end_date])
     response = HttpResponse()
     date = datetime.datetime.now()
     date = date.strftime('%d-%m-%Y_%H:%M')
@@ -49,7 +53,7 @@ class ProfileDetails(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ReclamationList(generics.ListAPIView):
-    queryset = Reclamation.objects.all()
+    queryset = Reclamation.objects.filter().order_by("-id")
     serializer_class = ReclamationSerializer
     # permission_classes = [IsAuthenticated, IsAdminOrConsultant]
     pagination_class = ReclamationPagination
