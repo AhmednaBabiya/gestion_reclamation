@@ -229,7 +229,8 @@ function ReclamationDetails() {
                       </Grid>
                       <Grid item md={6} xs={12}>
                         <FormControl fullWidth>
-                          {status == "Clôturée" && is_super_admin == false ? (
+                          {(status == "Clôturée" || status == "Traitée") &&
+                          is_super_admin == false ? (
                             <Grid item md={6} xs={12}>
                               <TextField
                                 fullWidth
