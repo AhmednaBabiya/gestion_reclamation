@@ -206,7 +206,7 @@ export const CustomerListResults = () => {
 
       {is_consultant == false && is_admin == false && is_super_admin == false ? (
         <div style={{ marginTop: 20 }}>
-          Veuillez demander l'activation de votre compte si celui-ci existe
+          Veuillez demander l&apos;activation de votre compte si celui-ci existe
         </div>
       ) : (
         <Card>
