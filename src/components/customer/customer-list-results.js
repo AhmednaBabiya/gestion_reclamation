@@ -267,7 +267,14 @@ export const CustomerListResults = () => {
                           textToHighlight={customer.customer_nni_number.toString()}
                         />
                       </TableCell>
-                      <TableCell>{customer.type}</TableCell>
+                      <TableCell>
+                        <Highlighter
+                          highlightClassName="YourHighlightClass"
+                          searchWords={[search]}
+                          autoEscape={true}
+                          textToHighlight={customer.type}
+                        />
+                      </TableCell>
                       <TableCell>
                         <SeverityPill
                           color={
