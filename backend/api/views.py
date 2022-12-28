@@ -53,7 +53,7 @@ class ProfileDetails(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ReclamationList(generics.ListAPIView):
-    queryset = Reclamation.objects.filter().order_by("-created_at")
+    queryset = Reclamation.objects.filter().order_by("created_at")
     serializer_class = ReclamationSerializer
     # permission_classes = [IsAuthenticated, IsAdminOrConsultant]
     pagination_class = ReclamationPagination
