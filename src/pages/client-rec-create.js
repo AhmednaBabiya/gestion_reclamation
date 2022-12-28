@@ -30,18 +30,35 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const ClientReclamationCreate = () => {
   const baseURL = "https://reclamation.bmi.mr:8000/backend/reclamation-create/";
+  const ReclamationsURL = "https://reclamation.bmi.mr:8000/backend/reclamation-list/";
   const [client_identity, setIdentityCard] = useState(null);
   const [client_photo, setPhoto] = useState(null);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [state, setState] = useState(false);
   const [language, setLanguage] = useState(localStorage.getItem("language"));
+  const [reclamations, setReclamations] = useState([]);
+  let match = false;
   const ar = {
     fontFamily: "calibri",
   };
   const fr = {
     fontFamily: "sans-serif",
   };
+  useEffect(() => {
+    axios
+      .get(ReclamationsURL, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        setReclamations(response.data);
+      })
+      .catch((err) => {
+        console.log("error message", err);
+      });
+  }, []);
   let form_data = new FormData();
   useEffect(() => {
     localStorage.setItem("language", language);
@@ -78,19 +95,45 @@ const ClientReclamationCreate = () => {
         form_data.append("customer_phone_number", formik.values.phoneAR);
         form_data.append("customer_nni_number", formik.values.nniAR);
       }
-      axios
-        .post(baseURL, form_data, {
-          "Content-Type": "application/json, multipart/form-data",
-        })
-        .then((res) => {
-          localStorage.setItem("rec_id", res.data.id);
-          setOpenSuccess(true);
-        })
-        .catch((err) => {
-          setState(false);
-          setOpenError(true);
-          console.log(err);
-        });
+      reclamations.map((r) => {
+        if (
+          r.customer_phone_number == formik.values.phone ||
+          r.customer_phone_number == formik.values.phoneAR
+        ) {
+          localStorage.setItem("rec_id", r.id);
+          match = true;
+        }
+      });
+      if (match == true) {
+        Router.push("/client-rec-details");
+      } else {
+        axios
+          .post(baseURL, form_data, {
+            "Content-Type": "application/json, multipart/form-data",
+          })
+          .then((res) => {
+            localStorage.setItem("rec_id", res.data.id);
+            setOpenSuccess(true);
+          })
+          .catch((err) => {
+            setState(false);
+            setOpenError(true);
+            console.log(err);
+          });
+      }
+      // axios
+      //   .post(baseURL, form_data, {
+      //     "Content-Type": "application/json, multipart/form-data",
+      //   })
+      //   .then((res) => {
+      //     localStorage.setItem("rec_id", res.data.id);
+      //     setOpenSuccess(true);
+      //   })
+      //   .catch((err) => {
+      //     setState(false);
+      //     setOpenError(true);
+      //     console.log(err);
+      //   });
     },
   });
   const handleCloseSuccess = (event, reason) => {

@@ -59,7 +59,7 @@ class ReclamationList(generics.ListAPIView):
     pagination_class = ReclamationPagination
     filter_backends = [filters.SearchFilter]
     search_fields = ['customer_nni_number',
-                     'customer_phone_number', 'customer_name', 'created_at', 'status']
+                     'customer_phone_number', 'customer_name', 'created_at', 'status', 'type']
 
 
 class ReclamationCreate(generics.CreateAPIView):
