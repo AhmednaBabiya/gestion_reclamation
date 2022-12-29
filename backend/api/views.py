@@ -15,11 +15,6 @@ from backend.models import Profile, Reclamation
 from backend.api.serializers import ProfileSerializer, ReclamationSerializer, ReclamationCreateSerializer
 # from django_filters.rest_framework import DjangoFilterBackend
 from backend.api.pagination import ReclamationPagination, ProfilePagination
-import base64
-import openpyxl
-# from openpyxl.drawing.image import Image
-import os
-from PIL import Image
 
 
 @api_view(['POST'])
@@ -37,26 +32,8 @@ def export_to_csv(request):
                     'date de creation', 'type', 'statut', 'date de traitement', 'screenshot'])
     reclamation_fields = reclamations.values_list(
         'customer_name', 'customer_phone_number', 'customer_nni_number', 'updated_by', 'created_at', 'type', 'status', 'treatment_date', 'screenshot')
-    workbook = openpyxl.Workbook()
-    worksheet = workbook.active
     for reclamation in reclamation_fields:
-        # writer.writerow(reclamation)
-        name, phone, nni, updated_by, created_at, r_type, status, treatment_date, screenshot = reclamation
-
-    # Encode the screenshot field as base64
-        if screenshot is not None:
-            screenshot = bytes(screenshot, 'utf-8')
-            screenshot = base64.b64encode(screenshot).decode('utf-8')
-            # Decode the base64-encoded string to get the file name
-            file_name = base64.b64decode(screenshot).decode('utf-8')
-            # Open the file and add it as an image to the worksheet
-            img = Image.open(file_name)
-            # Add the image to the worksheet
-            worksheet.add_image(openpyxl.drawing.image.Image(img))
-        # Add a blank cell for the screenshot field
-            screenshot = ''
-        writer.writerow([name, phone, nni, updated_by, created_at,
-                        r_type, status, treatment_date, screenshot])
+        writer.writerow(reclamation)
     return response
 
 
