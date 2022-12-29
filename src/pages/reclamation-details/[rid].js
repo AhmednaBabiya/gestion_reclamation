@@ -42,6 +42,7 @@ function ReclamationDetails() {
   const [description, setDescription] = useState("");
   const [created_at, setCreatedAt] = useState("");
   const [last_update, setLastUpdate] = useState("");
+  const [treatment_date, setTreatmentDate] = useState(null);
   const [updated_by, setUpdated_by] = useState(null);
   const [type, setType] = useState("");
   const [status, setStatus] = useState("");
@@ -112,6 +113,11 @@ function ReclamationDetails() {
         setUpdated_by(res.data.updated_by);
         setType(res.data.type);
         setStatus(res.data.status);
+        setTreatmentDate(
+          res.data.treatment_date.split("T")[0] +
+            " " +
+            res.data.treatment_date.split("T")[1].split(".")[0].slice(0, -3)
+        );
       })
       .catch((err) => {
         console.log("error message", err);
@@ -213,6 +219,18 @@ function ReclamationDetails() {
                             label="Traitée par"
                             name="updated_by"
                             value={updated_by}
+                            variant="outlined"
+                          />
+                        </Grid>
+                      )}
+                      {(status == "Traitée" || status == "Clôturée") && (
+                        <Grid item md={6} xs={12}>
+                          <TextField
+                            fullWidth
+                            disabled
+                            label="date du traitement"
+                            name="treatment_date"
+                            value={treatment_date}
                             variant="outlined"
                           />
                         </Grid>

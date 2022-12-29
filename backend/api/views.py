@@ -2,6 +2,7 @@ from email.policy import HTTP
 from django.http import HttpResponse
 import profile
 import csv
+import xlwt
 import datetime
 from rest_framework import status, generics, mixins
 from rest_framework.response import Response
@@ -28,9 +29,9 @@ def export_to_csv(request):
     response['Content-Disposition'] = f'attachment; filename=reclamation_export {date}.csv'
     writer = csv.writer(response)
     writer.writerow(['Nom complet', 'Telephone', 'NNI', 'Traitee par',
-                    'date de creation', 'date du derniere modification', 'type', 'statut'])
+                    'date de creation', 'type', 'statut', 'date de traitement'])
     reclamation_fields = reclamations.values_list(
-        'customer_name', 'customer_phone_number', 'customer_nni_number', 'updated_by', 'created_at', 'last_update', 'type', 'status')
+        'customer_name', 'customer_phone_number', 'customer_nni_number', 'updated_by', 'created_at', 'type', 'status', 'treatment_date')
     for reclamation in reclamation_fields:
         # print(reclamation[5])
         writer.writerow(reclamation)
@@ -83,6 +84,7 @@ class ReclamationUpdateDetails(generics.RetrieveUpdateDestroyAPIView):
         copy = request.data.copy()
         if copy['status'] == 'Traitée':
             copy['updated_by'] = f'{user.first_name} {user.last_name}'
+            copy['treatment_date'] = datetime.datetime.now()
         serializer = ReclamationSerializer(
             reclamation, data=copy, partial=True, context={'request': request})
         if request.data['status'] == 'Clôturée' and user.is_super_admin == False:

@@ -16,6 +16,7 @@ import {
   TextField,
   InputAdornment,
   SvgIcon,
+  Grid,
 } from "@mui/material";
 import axios from "axios";
 import { Search as SearchIcon } from "../../icons/search";
@@ -96,7 +97,7 @@ export const CustomerListResults = () => {
       )
       .then((res) => {
         let date = new Date().toLocaleString() + "";
-        FileDownload(res.data, `reclamation_export ${date}.csv`);
+        FileDownload(res.data, `reclamation_export ${date}.xls`);
       })
       .catch((err) => {
         console.log("error message", err);

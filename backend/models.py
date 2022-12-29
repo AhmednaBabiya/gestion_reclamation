@@ -102,6 +102,7 @@ class Reclamation(models.Model):
     ]
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     last_update = models.DateTimeField(auto_now=True)
+    treatment_date = models.DateTimeField(null=True)
     type = models.CharField(
         max_length=255, choices=TYPE_CHOICES, default=TYPE_ACTIVATION)
     status = models.CharField(
