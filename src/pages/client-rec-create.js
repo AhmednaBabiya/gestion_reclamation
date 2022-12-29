@@ -107,7 +107,7 @@ const ClientReclamationCreate = () => {
       form_data.append("customer_name", formik.values.name);
       form_data.append("identity_card", client_identity, client_identity.name);
       form_data.append("photo", client_photo, client_photo.name);
-      form_data.append("screenshot", screenshot);
+      // form_data.append("screenshot", screenshot);
       form_data.append("description", formik.values.description);
       form_data.append("type", formik.values.type);
       if (language == "fr") {
