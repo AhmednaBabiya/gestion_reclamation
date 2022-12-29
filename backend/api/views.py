@@ -29,11 +29,14 @@ def export_to_csv(request):
     response['Content-Disposition'] = f'attachment; filename=reclamation_export {date}.csv'
     writer = csv.writer(response)
     writer.writerow(['Nom complet', 'Telephone', 'NNI', 'Traitee par',
-                    'date de creation', 'type', 'statut', 'date de traitement', 'screenshot'])
+                    'date de creation', 'type', 'statut', 'date de traitement'])
     reclamation_fields = reclamations.values_list(
-        'customer_name', 'customer_phone_number', 'customer_nni_number', 'updated_by', 'created_at', 'type', 'status', 'treatment_date', 'screenshot')
+        'customer_name', 'customer_phone_number', 'customer_nni_number', 'updated_by', 'created_at', 'type', 'status', 'treatment_date')
     for reclamation in reclamation_fields:
+        # print(reclamation[5])
         writer.writerow(reclamation)
+    # def dehydrate_created_at(self, obj):
+    #     return obj.created_at.strftime('%d-%m-%Y %H:%M:%S')
     return response
 
 
