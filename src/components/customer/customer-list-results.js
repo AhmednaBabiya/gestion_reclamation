@@ -5,7 +5,6 @@ import Router from "next/router";
 import {
   Box,
   Card,
-  Table,
   TableBody,
   TableCell,
   TableHead,
@@ -23,6 +22,7 @@ import { Search as SearchIcon } from "../../icons/search";
 import { SeverityPill } from "../severity-pill";
 import DownloadIcon from "@mui/icons-material/Download";
 import FileDownload from "js-file-download";
+import { Container, Table } from "@material-ui/core";
 
 export const CustomerListResults = () => {
   const baseURL = `https://reclamation.bmi.mr:8000/backend/reclamation-list/?search=`;
@@ -212,7 +212,8 @@ export const CustomerListResults = () => {
       ) : (
         <Card>
           <PerfectScrollbar>
-            <Box sx={{ minWidth: 1050 }}>
+            {/* <Box sx={{ minWidth: 1050 }}> */}
+            <Container maxWidth="lg">
               <Table>
                 <TableHead>
                   <TableRow>
@@ -296,7 +297,8 @@ export const CustomerListResults = () => {
                   ))}
                 </TableBody>
               </Table>
-            </Box>
+            </Container>
+            {/* </Box> */}
           </PerfectScrollbar>
         </Card>
       )}
