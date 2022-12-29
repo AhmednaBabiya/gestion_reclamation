@@ -30,14 +30,19 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const ClientReclamationCreate = () => {
   const baseURL = "https://reclamation.bmi.mr:8000/backend/reclamation-create/";
+  const profileURL = "https://reclamation.bmi.mr:8000/backend/profile/me/";
   const ReclamationsURL = "https://reclamation.bmi.mr:8000/backend/reclamation-list/";
   const [client_identity, setIdentityCard] = useState(null);
   const [client_photo, setPhoto] = useState(null);
+  const [screenshot, setScreenshot] = useState(null);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [state, setState] = useState(false);
   const [language, setLanguage] = useState(localStorage.getItem("language"));
   const [reclamations, setReclamations] = useState([]);
+  const [is_admin, setIsAdmin] = useState(false);
+  const [is_super_admin, setIsSuperAdmin] = useState(false);
+  let tokenStr = localStorage.getItem("token");
   let match = false;
   const ar = {
     fontFamily: "calibri",
@@ -45,6 +50,22 @@ const ClientReclamationCreate = () => {
   const fr = {
     fontFamily: "sans-serif",
   };
+  useEffect(() => {
+    axios
+      .get(profileURL, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${tokenStr}`,
+        },
+      })
+      .then((res) => {
+        setIsSuperAdmin(res.data.is_super_admin);
+        setIsAdmin(res.data.is_admin);
+      })
+      .catch((err) => {
+        console.log("error message", err);
+      });
+  }, []);
   useEffect(() => {
     axios
       .get(ReclamationsURL, {
@@ -86,6 +107,7 @@ const ClientReclamationCreate = () => {
       form_data.append("customer_name", formik.values.name);
       form_data.append("identity_card", client_identity, client_identity.name);
       form_data.append("photo", client_photo, client_photo.name);
+      form_data.append("screenshot", screenshot);
       form_data.append("description", formik.values.description);
       form_data.append("type", formik.values.type);
       if (language == "fr") {
@@ -95,45 +117,45 @@ const ClientReclamationCreate = () => {
         form_data.append("customer_phone_number", formik.values.phoneAR);
         form_data.append("customer_nni_number", formik.values.nniAR);
       }
-      reclamations.map((r) => {
-        if (
-          r.customer_phone_number == formik.values.phone ||
-          r.customer_phone_number == formik.values.phoneAR
-        ) {
-          localStorage.setItem("rec_id", r.id);
-          match = true;
-        }
-      });
-      if (match == true) {
-        Router.push("/client-rec-details");
-      } else {
-        axios
-          .post(baseURL, form_data, {
-            "Content-Type": "application/json, multipart/form-data",
-          })
-          .then((res) => {
-            localStorage.setItem("rec_id", res.data.id);
-            setOpenSuccess(true);
-          })
-          .catch((err) => {
-            setState(false);
-            setOpenError(true);
-            console.log(err);
-          });
-      }
-      // axios
-      //   .post(baseURL, form_data, {
-      //     "Content-Type": "application/json, multipart/form-data",
-      //   })
-      //   .then((res) => {
-      //     localStorage.setItem("rec_id", res.data.id);
-      //     setOpenSuccess(true);
-      //   })
-      //   .catch((err) => {
-      //     setState(false);
-      //     setOpenError(true);
-      //     console.log(err);
-      //   });
+      // reclamations.map((r) => {
+      //   if (
+      //     r.customer_phone_number == formik.values.phone ||
+      //     r.customer_phone_number == formik.values.phoneAR
+      //   ) {
+      //     localStorage.setItem("rec_id", r.id);
+      //     match = true;
+      //   }
+      // });
+      // if (match == true) {
+      //   Router.push("/client-rec-details");
+      // } else {
+      //   axios
+      //     .post(baseURL, form_data, {
+      //       "Content-Type": "application/json, multipart/form-data",
+      //     })
+      //     .then((res) => {
+      //       localStorage.setItem("rec_id", res.data.id);
+      //       setOpenSuccess(true);
+      //     })
+      //     .catch((err) => {
+      //       setState(false);
+      //       setOpenError(true);
+      //       console.log(err);
+      //     });
+      // }
+      axios
+        .post(baseURL, form_data, {
+          "Content-Type": "application/json, multipart/form-data",
+        })
+        .then((res) => {
+          localStorage.setItem("rec_id", res.data.id);
+          setOpenSuccess(true);
+        })
+        .catch((err) => {
+          setState(false);
+          setOpenError(true);
+          console.log(err);
+        });
     },
   });
   const handleCloseSuccess = (event, reason) => {
@@ -460,6 +482,52 @@ const ClientReclamationCreate = () => {
                     }}
                   />
                 </div>
+              </div>
+              <div>
+                {(is_admin == true || is_super_admin == true) && screenshot && (
+                  <div style={{ marginTop: 20, marginRight: 10 }}>
+                    <img
+                      alt="not found"
+                      width={"350px"}
+                      height={"180px"}
+                      src={URL.createObjectURL(screenshot)}
+                    />
+                    <br />
+                    <Button
+                      style={localStorage.getItem("language") == "fr" ? fr : ar}
+                      color="primary"
+                      size="small"
+                      variant="contained"
+                      onClick={() => setScreenshot(null)}
+                    >
+                      {language == "fr" ? "Supprimer" : "حذف"}
+                    </Button>
+                  </div>
+                )}
+                {(is_admin == true || is_super_admin == true) && (
+                  <div
+                    dir={language == "fr" ? null : "rtl"}
+                    style={{ display: "flex", marginTop: 20, marginBottom: 20 }}
+                  >
+                    {language == "fr" ? (
+                      <InputLabel style={{ marginRight: 20, marginTop: 9 }}>
+                        Capture d&apos;écran
+                      </InputLabel>
+                    ) : (
+                      <InputLabel style={{ marginLeft: 45, marginTop: 9, fontFamily: "calibri" }}>
+                        لقطة الشاشة
+                      </InputLabel>
+                    )}
+                    <Input
+                      color="primary"
+                      type="file"
+                      name="screenshot"
+                      onChange={(event) => {
+                        setScreenshot(event.target.files[0]);
+                      }}
+                    />
+                  </div>
+                )}
               </div>
             </div>
             <Box sx={{ py: 2 }}>

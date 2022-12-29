@@ -24,6 +24,7 @@ function ClientReclamationDetails() {
   const [customer_nni_number, setCustomerNNINumber] = useState("");
   const [identity_card, setIdentityCard] = useState("");
   const [photo, setPhoto] = useState("");
+  const [screenshot, setScreenshot] = useState("");
   const [description, setDescription] = useState("");
   const [created_at, setCreatedAt] = useState("");
   const [last_update, setLastUpdate] = useState("");
@@ -50,6 +51,7 @@ function ClientReclamationDetails() {
         setCustomerNNINumber(res.data.customer_nni_number);
         setIdentityCard(res.data.identity_card);
         setPhoto(res.data.photo);
+        setScreenshot(res.data.screenshot);
         setDescription(res.data.description);
         setCreatedAt(
           res.data.created_at.split("T")[0] +
@@ -292,6 +294,29 @@ function ClientReclamationDetails() {
                           ></InnerImageZoom>
                         </div>
                       </Grid>
+                      {screenshot && (
+                        <Grid item md={6} xs={12}>
+                          <div
+                            style={localStorage.getItem("language") == "fr" ? fr : ar}
+                            dir={language == "fr" ? null : "rtl"}
+                          >
+                            <a>{language == "fr" ? `Capture d'écran` : "لقطة الشاشة"}</a>
+                          </div>
+                          <a></a>
+                          <div
+                            style={{
+                              alignItems: "center",
+                              justifyContent: "center",
+                              display: "flex",
+                            }}
+                          >
+                            <InnerImageZoom
+                              src={screenshot}
+                              style={{ maxHeight: 160, maxWidth: 300, width: 300 }}
+                            ></InnerImageZoom>
+                          </div>
+                        </Grid>
+                      )}
                     </Grid>
                   </CardContent>
                   <Divider />

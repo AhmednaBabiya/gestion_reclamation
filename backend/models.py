@@ -71,6 +71,7 @@ class Reclamation(models.Model):
     customer_nni_number = models.BigIntegerField(null=True)
     identity_card = models.FileField(null=True)
     photo = models.FileField(null=True)
+    screenshot = models.FileField(null=True)
     description = models.TextField(null=True)
     updated_by = models.CharField(max_length=255, null=True)
     TYPE_ACTIVATION = 'Activation'
