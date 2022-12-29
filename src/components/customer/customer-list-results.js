@@ -97,7 +97,7 @@ export const CustomerListResults = () => {
       )
       .then((res) => {
         let date = new Date().toLocaleString() + "";
-        FileDownload(res.data, `reclamation_export ${date}.xls`);
+        FileDownload(res.data, `reclamation_export ${date}.csv`);
       })
       .catch((err) => {
         console.log("error message", err);
