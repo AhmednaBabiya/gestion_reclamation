@@ -3,6 +3,7 @@ from django.http import HttpResponse
 import profile
 import csv
 import xlwt
+import codecs
 import datetime
 from rest_framework import status, generics, mixins
 from rest_framework.response import Response
@@ -23,15 +24,17 @@ def export_to_csv(request):
     end_date = request.data['end_date']
     reclamations = Reclamation.objects.filter(
         created_at__range=[begin_date, end_date])
-    response = HttpResponse()
+    response = HttpResponse(content_type='text/csv; charset=utf-8')
     date = datetime.datetime.now()
     date = date.strftime('%d-%m-%Y_%H:%M')
     response['Content-Disposition'] = f'attachment; filename=reclamation_export {date}.csv'
-    writer = csv.writer(response)
+    # Use the codecs module to open the response object in write mode with UTF-8 encoding
+    csv_file = codecs.getwriter('utf-8')(response)
+    writer = csv.writer(csv_file)
     writer.writerow(['Nom complet', 'Telephone', 'NNI', 'Traitee par',
-                    'date de creation', 'type', 'statut', 'date de traitement'])
+                    'date de creation', 'type', 'statut', 'date de traitement', "lien carte d'identite", 'lien photo', "lien capture d'ecran"])
     reclamation_fields = reclamations.values_list(
-        'customer_name', 'customer_phone_number', 'customer_nni_number', 'updated_by', 'created_at', 'type', 'status', 'treatment_date')
+        'customer_name', 'customer_phone_number', 'customer_nni_number', 'updated_by', 'created_at', 'type', 'status', 'treatment_date', 'identity_card', 'photo', 'screenshot')
     for reclamation in reclamation_fields:
         created_at_formatted = reclamation[4].strftime('%d-%m-%Y %H:%M:%S')
         treatment_date = reclamation[7]
@@ -48,7 +51,10 @@ def export_to_csv(request):
             created_at_formatted,
             reclamation[5],
             reclamation[6],
-            treatment_date_formatted
+            treatment_date_formatted,
+            reclamation[8],
+            reclamation[9],
+            reclamation[10],
         ]
         writer.writerow(modified_reclamation)
     return response
