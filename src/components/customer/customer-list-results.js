@@ -26,7 +26,7 @@ import { Container, Table } from "@material-ui/core";
 
 export const CustomerListResults = () => {
   const baseURL = `https://reclamation.bmi.mr:8000/backend/reclamation-list/?search=`;
-  const downloadURL = "https://reclamation.bmi.mr:8000/backend/export-to-csv";
+  const downloadURL = "http://127.0.0.1:8000/backend/export-to-csv";
   const profileURL = "https://reclamation.bmi.mr:8000/backend/profile/me/";
   const [rows_count, setRowsCount] = useState(null);
   const [reclamations_page, setReclamationsPage] = useState(1);
@@ -70,7 +70,8 @@ export const CustomerListResults = () => {
     customer_phone_number,
     customer_nni_number,
     type,
-    status
+    status,
+    created_by
   ) => {
     return {
       id,
@@ -80,6 +81,7 @@ export const CustomerListResults = () => {
       customer_nni_number,
       type,
       status,
+      created_by,
     };
   };
 
@@ -125,7 +127,8 @@ export const CustomerListResults = () => {
               r.customer_phone_number,
               r.customer_nni_number,
               r.type,
-              r.status
+              r.status,
+              r.created_by
             )
           )
         );
@@ -205,103 +208,112 @@ export const CustomerListResults = () => {
         </Box>
       </Box>
 
-      {is_consultant == false && is_admin == false && is_super_admin == false ? (
+      {/* {is_consultant == false && is_admin == false && is_super_admin == false ? (
         <div style={{ marginTop: 20 }}>
           Veuillez demander l&apos;activation de votre compte si celui-ci existe
         </div>
-      ) : (
-        <Card>
-          <PerfectScrollbar>
-            {/* <Box sx={{ minWidth: 1050 }}> */}
-            <Container maxWidth="lg">
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Nom du client</TableCell>
-                    <TableCell>Créé le</TableCell>
-                    <TableCell>Téléphone du client</TableCell>
-                    <TableCell>NNI client</TableCell>
-                    <TableCell>Type</TableCell>
-                    <TableCell>Status</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rec_customers.map((customer) => (
-                    <TableRow hover key={customer.id} onClick={() => handleDetails(customer.id)}>
-                      <TableCell>
-                        <Box
-                          sx={{
-                            alignItems: "center",
-                            display: "flex",
-                          }}
-                        >
-                          <Typography color="textPrimary" variant="body1">
-                            <Highlighter
-                              highlightClassName="YourHighlightClass"
-                              searchWords={[search]}
-                              autoEscape={true}
-                              textToHighlight={customer.customer_name}
-                            />
-                          </Typography>
-                        </Box>
-                      </TableCell>
-                      <TableCell>
-                        <Highlighter
-                          highlightClassName="YourHighlightClass"
-                          searchWords={[search]}
-                          autoEscape={true}
-                          textToHighlight={customer.created_at}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Highlighter
-                          highlightClassName="YourHighlightClass"
-                          searchWords={[search]}
-                          autoEscape={true}
-                          textToHighlight={customer.customer_phone_number.toString()}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Highlighter
-                          highlightClassName="YourHighlightClass"
-                          searchWords={[search]}
-                          autoEscape={true}
-                          textToHighlight={customer.customer_nni_number.toString()}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Highlighter
-                          highlightClassName="YourHighlightClass"
-                          searchWords={[search]}
-                          autoEscape={true}
-                          textToHighlight={customer.type}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <SeverityPill
-                          color={
-                            (customer.status === "Traitée" && "success") ||
-                            (customer.status === "Pas encore traitée" && "error") ||
-                            "warning"
-                          }
-                        >
+      ) : ( */}
+      <Card>
+        <PerfectScrollbar>
+          {/* <Box sx={{ minWidth: 1050 }}> */}
+          <Container maxWidth="lg">
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Nom du client</TableCell>
+                  <TableCell>Créé le</TableCell>
+                  <TableCell>Téléphone du client</TableCell>
+                  <TableCell>NNI client</TableCell>
+                  <TableCell>Type</TableCell>
+                  <TableCell>Status</TableCell>
+                  <TableCell>Crée par</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rec_customers.map((customer) => (
+                  <TableRow hover key={customer.id} onClick={() => handleDetails(customer.id)}>
+                    <TableCell>
+                      <Box
+                        sx={{
+                          alignItems: "center",
+                          display: "flex",
+                        }}
+                      >
+                        <Typography color="textPrimary" variant="body1">
                           <Highlighter
                             highlightClassName="YourHighlightClass"
                             searchWords={[search]}
                             autoEscape={true}
-                            textToHighlight={customer.status.toString()}
+                            textToHighlight={customer.customer_name}
                           />
-                        </SeverityPill>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Container>
-            {/* </Box> */}
-          </PerfectScrollbar>
-        </Card>
-      )}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                    <TableCell>
+                      <Highlighter
+                        highlightClassName="YourHighlightClass"
+                        searchWords={[search]}
+                        autoEscape={true}
+                        textToHighlight={customer.created_at}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Highlighter
+                        highlightClassName="YourHighlightClass"
+                        searchWords={[search]}
+                        autoEscape={true}
+                        textToHighlight={customer.customer_phone_number.toString()}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Highlighter
+                        highlightClassName="YourHighlightClass"
+                        searchWords={[search]}
+                        autoEscape={true}
+                        textToHighlight={customer.customer_nni_number.toString()}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Highlighter
+                        highlightClassName="YourHighlightClass"
+                        searchWords={[search]}
+                        autoEscape={true}
+                        textToHighlight={customer.type}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <SeverityPill
+                        color={
+                          (customer.status === "Traitée" && "success") ||
+                          (customer.status === "Pas encore traitée" && "error") ||
+                          "warning"
+                        }
+                      >
+                        <Highlighter
+                          highlightClassName="YourHighlightClass"
+                          searchWords={[search]}
+                          autoEscape={true}
+                          textToHighlight={customer.status.toString()}
+                        />
+                      </SeverityPill>
+                    </TableCell>
+                    <TableCell>
+                      <Highlighter
+                        highlightClassName="YourHighlightClass"
+                        searchWords={[search]}
+                        autoEscape={true}
+                        textToHighlight={customer.created_by}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Container>
+          {/* </Box> */}
+        </PerfectScrollbar>
+      </Card>
+      {/* )} */}
       {is_consultant == false && is_admin == false && is_super_admin == false ? null : (
         <Pagination
           color="primary"

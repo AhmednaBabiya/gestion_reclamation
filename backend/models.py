@@ -74,6 +74,7 @@ class Reclamation(models.Model):
     screenshot = models.FileField(null=True)
     description = models.TextField(null=True)
     updated_by = models.CharField(max_length=255, null=True)
+    created_by = models.CharField(max_length=255, null=True)
     TYPE_ACTIVATION = 'Activation'
     TYPE_PHONE = 'Changement de téléphone'
     TYPE_UNBLOCK = 'Déblocage'

@@ -16,6 +16,7 @@ class ReclamationCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Reclamation
+        read_only_fields = ['updated_by', 'created_by', 'treatment_date']
         exclude = ['status']
 
 

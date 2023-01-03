@@ -45,6 +45,7 @@ function ReclamationDetails() {
   const [last_update, setLastUpdate] = useState("");
   const [treatment_date, setTreatmentDate] = useState(null);
   const [updated_by, setUpdated_by] = useState(null);
+  const [created_by, setCreatedBy] = useState(null);
   const [type, setType] = useState("");
   const [status, setStatus] = useState("");
   const [is_super_admin, setIsSuperAdmin] = useState(false);
@@ -96,6 +97,7 @@ function ReclamationDetails() {
       })
       .then((res) => {
         setCustomerName(res.data.customer_name);
+        setCreatedBy(res.data.created_by);
         setCustomerPhoneNumber(res.data.customer_phone_number);
         setCustomerNNINumber(res.data.customer_nni_number);
         setIdentityCard(res.data.identity_card);
@@ -138,7 +140,7 @@ function ReclamationDetails() {
     }
     setOpenError(false);
   };
-
+  console.log("det : ", created_by);
   return (
     <>
       <Head>
@@ -221,6 +223,18 @@ function ReclamationDetails() {
                             label="Traitée par"
                             name="updated_by"
                             value={updated_by}
+                            variant="outlined"
+                          />
+                        </Grid>
+                      )}
+                      {created_by && (
+                        <Grid item md={6} xs={12}>
+                          <TextField
+                            fullWidth
+                            disabled
+                            label="Créer par"
+                            name="created_by"
+                            value={created_by}
                             variant="outlined"
                           />
                         </Grid>
