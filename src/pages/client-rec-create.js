@@ -145,19 +145,38 @@ const ClientReclamationCreate = () => {
       //       console.log(err);
       //     });
       // }
-      axios
-        .post(baseURL, form_data, {
-          "Content-Type": "application/json, multipart/form-data",
-        })
-        .then((res) => {
-          localStorage.setItem("rec_id", res.data.id);
-          setOpenSuccess(true);
-        })
-        .catch((err) => {
-          setState(false);
-          setOpenError(true);
-          console.log(err);
-        });
+      if (tokenStr) {
+        axios
+          .post(baseURL, form_data, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              authorization: `Token ${tokenStr}`,
+            },
+          })
+          .then((res) => {
+            localStorage.setItem("rec_id", res.data.id);
+            setOpenSuccess(true);
+          })
+          .catch((err) => {
+            setState(false);
+            setOpenError(true);
+            console.log(err);
+          });
+      } else {
+        axios
+          .post(baseURL, form_data, {
+            "Content-Type": "multipart/form-data",
+          })
+          .then((res) => {
+            localStorage.setItem("rec_id", res.data.id);
+            setOpenSuccess(true);
+          })
+          .catch((err) => {
+            setState(false);
+            setOpenError(true);
+            console.log(err);
+          });
+      }
     },
   });
   const handleCloseSuccess = (event, reason) => {
