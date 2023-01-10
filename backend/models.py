@@ -68,7 +68,7 @@ class Profile(AbstractBaseUser):
 class Reclamation(models.Model):
     customer_name = models.CharField(max_length=255, null=True)
     customer_phone_number = models.BigIntegerField(null=True)
-    customer_nni_number = models.BigIntegerField(null=True)
+    customer_nni_number = models.CharField(max_length=255, null=True)
     identity_card = models.FileField(null=True)
     photo = models.FileField(null=True)
     screenshot = models.FileField(null=True)
