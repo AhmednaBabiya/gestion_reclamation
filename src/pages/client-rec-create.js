@@ -576,7 +576,7 @@ const ClientReclamationCreate = () => {
           style={localStorage.getItem("language") == "fr" ? fr : ar}
         >
           {language == "fr"
-            ? "Erreur lors de la création de votre réclamation, Veuillez vous assurer d'avoir les champs necéssaires"
+            ? "Erreur lors de la création de votre réclamation, Veuillez vous assurer d'avoir remplir les champs necéssaires et que vous n'aviez pas de reclamation en cours de traitement"
             : "خطأ عند إنشاء الشكوى ، يرجى التأكد من ملء الحقول اللازمة"}
         </Alert>
       </Snackbar>

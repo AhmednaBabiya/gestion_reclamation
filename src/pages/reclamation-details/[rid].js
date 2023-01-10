@@ -39,7 +39,7 @@ function ReclamationDetails() {
   const [customer_nni_number, setCustomerNNINumber] = useState("");
   const [identity_card, setIdentityCard] = useState("");
   const [photo, setPhoto] = useState("");
-  const [screenshot, setScreenshot] = useState("");
+  const [screenshot, setScreenshot] = useState(null);
   const [description, setDescription] = useState("");
   const [created_at, setCreatedAt] = useState("");
   const [last_update, setLastUpdate] = useState("");
