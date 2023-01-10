@@ -92,12 +92,23 @@ class ReclamationCreate(generics.CreateAPIView):
         user = request.user
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        if user.is_authenticated:
-            serializer.validated_data['created_by'] = f'{user.first_name} {user.last_name}'
+        customer_nni_number = serializer.validated_data.get(
+            'customer_nni_number')
+        # Check if there is already an existing reclamation with the same phone number
+        existing_reclamation = Reclamation.objects.filter(
+            customer_nni_number=customer_nni_number)
+        # Check if the status is 'Clôturée'
+        for reclamation in existing_reclamation:
+            if reclamation.status != 'Clôturée':
+                return Response({'status': 'error', 'message': 'A reclamation with the same phone number already exists and is not yet closed'},
+                                status=status.HTTP_400_BAD_REQUEST)
         else:
-            serializer.validated_data['created_by'] = 'Client'
-        serializer.save()
-        return Response(serializer.data)
+            if user.is_authenticated:
+                serializer.validated_data['created_by'] = f'{user.first_name} {user.last_name}'
+            else:
+                serializer.validated_data['created_by'] = 'Client'
+            serializer.save()
+            return Response(serializer.data)
 
 
 class ReclamationDetails(generics.RetrieveAPIView):
