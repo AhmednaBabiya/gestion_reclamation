@@ -51,12 +51,14 @@ function ReclamationDetails() {
   const [is_super_admin, setIsSuperAdmin] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
+  const [openDeleteSuccess, setOpenDeleteSuccess] = useState(false);
+  const [openDeleteError, setOpenDeleteError] = useState(false);
 
   const handleSave = () => {
     axios
       .put(
         reclamationURL + "/update-delete",
-        { status },
+        { customer_name, customer_phone_number, customer_nni_number, type, status },
         {
           headers: {
             "Content-Type": "application/json",
@@ -70,6 +72,22 @@ function ReclamationDetails() {
       .catch((err) => {
         console.log("error message", err);
         setOpenError(true);
+      });
+  };
+  const handleDelete = () => {
+    axios
+      .delete(reclamationURL + "/update-delete", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${tokenStr}`,
+        },
+      })
+      .then((res) => {
+        setOpenDeleteSuccess(true);
+      })
+      .catch((err) => {
+        console.log("error message", err);
+        setOpenDeleteError(true);
       });
   };
   useEffect(() => {
@@ -140,7 +158,19 @@ function ReclamationDetails() {
     }
     setOpenError(false);
   };
-  console.log("det : ", created_by);
+  const handleCloseDeleteSuccess = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenDeleteSuccess(false);
+    Router.push("/reclamations");
+  };
+  const handleCloseDeleteError = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenDeleteError(false);
+  };
   return (
     <>
       <Head>
@@ -165,36 +195,75 @@ function ReclamationDetails() {
                   <Divider />
                   <CardContent>
                     <Grid container spacing={3}>
-                      <Grid item md={6} xs={12}>
-                        <TextField
-                          fullWidth
-                          disabled
-                          label="nom du client"
-                          name="customer_name"
-                          value={customer_name}
-                          variant="outlined"
-                        />
-                      </Grid>
-                      <Grid item md={6} xs={12}>
-                        <TextField
-                          fullWidth
-                          disabled
-                          label="Numéro de téléphone du client"
-                          name="customer_phone_number"
-                          value={customer_phone_number}
-                          variant="outlined"
-                        />
-                      </Grid>
-                      <Grid item md={6} xs={12}>
-                        <TextField
-                          fullWidth
-                          disabled
-                          label="NNI du client"
-                          name="customer_nni_number"
-                          value={customer_nni_number}
-                          variant="outlined"
-                        />
-                      </Grid>
+                      {is_super_admin === false ? (
+                        <Grid item md={6} xs={12}>
+                          <TextField
+                            fullWidth
+                            disabled
+                            label="nom du client"
+                            name="customer_name"
+                            value={customer_name}
+                            variant="outlined"
+                          />
+                        </Grid>
+                      ) : (
+                        <Grid item md={6} xs={12}>
+                          <TextField
+                            fullWidth
+                            label="nom du client"
+                            name="customer_name"
+                            onChange={(e) => setCustomerName(e.target.value)}
+                            value={customer_name}
+                            variant="outlined"
+                          />
+                        </Grid>
+                      )}
+                      {is_super_admin === false ? (
+                        <Grid item md={6} xs={12}>
+                          <TextField
+                            fullWidth
+                            disabled
+                            label="Numéro de téléphone du client"
+                            name="customer_phone_number"
+                            value={customer_phone_number}
+                            variant="outlined"
+                          />
+                        </Grid>
+                      ) : (
+                        <Grid item md={6} xs={12}>
+                          <TextField
+                            fullWidth
+                            label="Numéro de téléphone du client"
+                            name="customer_phone_number"
+                            onChange={(e) => setCustomerPhoneNumber(e.target.value)}
+                            value={customer_phone_number}
+                            variant="outlined"
+                          />
+                        </Grid>
+                      )}
+                      {is_super_admin === false ? (
+                        <Grid item md={6} xs={12}>
+                          <TextField
+                            fullWidth
+                            disabled
+                            label="NNI du client"
+                            name="customer_nni_number"
+                            value={customer_nni_number}
+                            variant="outlined"
+                          />
+                        </Grid>
+                      ) : (
+                        <Grid item md={6} xs={12}>
+                          <TextField
+                            fullWidth
+                            label="NNI du client"
+                            name="customer_nni_number"
+                            onChange={(e) => setCustomerNNINumber(e.target.value)}
+                            value={customer_nni_number}
+                            variant="outlined"
+                          />
+                        </Grid>
+                      )}
                       <Grid item md={6} xs={12}>
                         <TextField
                           fullWidth
@@ -252,14 +321,41 @@ function ReclamationDetails() {
                         </Grid>
                       )}
                       <Grid item md={6} xs={12}>
-                        <TextField
-                          fullWidth
-                          disabled
-                          label="type"
-                          name="type"
-                          value={type}
-                          variant="outlined"
-                        />
+                        <FormControl fullWidth>
+                          {is_super_admin === false ? (
+                            <Grid item md={6} xs={12}>
+                              <TextField
+                                fullWidth
+                                disabled
+                                label="type"
+                                name="type"
+                                value={type}
+                                variant="outlined"
+                              />
+                            </Grid>
+                          ) : (
+                            <>
+                              <InputLabel>Type</InputLabel>
+                              <Select
+                                fullWidth
+                                label="Status"
+                                onChange={(e) => setType(e.target.value)}
+                                value={type}
+                              >
+                                <MenuItem value="Activation">Activation</MenuItem>
+                                <MenuItem value="Changement de téléphone">
+                                  Changement de téléphone
+                                </MenuItem>
+                                <MenuItem value="Déblocage">Déblocage</MenuItem>
+                                <MenuItem value="Changement de mot de passe">
+                                  Changement de mot de passe
+                                </MenuItem>
+                                <MenuItem value="Virements">Virements</MenuItem>
+                                <MenuItem value="Autres">Autres</MenuItem>
+                              </Select>
+                            </>
+                          )}
+                        </FormControl>
                       </Grid>
                       <Grid item md={6} xs={12}>
                         <FormControl fullWidth>
@@ -297,17 +393,31 @@ function ReclamationDetails() {
                           )}
                         </FormControl>
                       </Grid>
-                      <Grid item md={6} xs={12}>
-                        <TextField
-                          fullWidth
-                          disabled
-                          label="description"
-                          name="description"
-                          multiline
-                          value={description}
-                          variant="outlined"
-                        />
-                      </Grid>
+                      {is_super_admin === false ? (
+                        <Grid item md={6} xs={12}>
+                          <TextField
+                            fullWidth
+                            disabled
+                            label="description"
+                            name="description"
+                            multiline
+                            value={description}
+                            variant="outlined"
+                          />
+                        </Grid>
+                      ) : (
+                        <Grid item md={6} xs={12}>
+                          <TextField
+                            fullWidth
+                            label="description"
+                            name="description"
+                            multiline
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            variant="outlined"
+                          />
+                        </Grid>
+                      )}
                       <Grid item md={6} xs={12}>
                         <a>Photo du client</a>
                         <div
@@ -358,17 +468,32 @@ function ReclamationDetails() {
                     </Grid>
                   </CardContent>
                   <Divider />
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      p: 2,
-                    }}
-                  >
-                    <Button color="primary" variant="contained" onClick={handleSave}>
-                      Enregistrer la modification
-                    </Button>
-                  </Box>
+                  <div style={{ display: "flex" }}>
+                    {is_super_admin === true && (
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "flex-start",
+                          p: 2,
+                        }}
+                      >
+                        <Button color="error" variant="contained" onClick={handleDelete}>
+                          Supprimer
+                        </Button>
+                      </Box>
+                    )}
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        p: 2,
+                      }}
+                    >
+                      <Button color="primary" variant="contained" onClick={handleSave}>
+                        Enregistrer la modification
+                      </Button>
+                    </Box>
+                  </div>
                 </Card>
               </form>
             </Grid>
@@ -388,6 +513,21 @@ function ReclamationDetails() {
       >
         <Alert onClose={handleCloseSuccess} severity="success">
           Statut modifié avec succès!
+        </Alert>
+      </Snackbar>
+      <Snackbar open={openDeleteError} autoHideDuration={5000} onClose={handleCloseDeleteError}>
+        <Alert onClose={handleCloseDeleteError} severity="error">
+          Erreur lors de la supression du réclamation!
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={openDeleteSuccess}
+        autoHideDuration={4000}
+        onClose={handleCloseDeleteSuccess}
+        style={{ color: "#AB334B", textAlign: "center" }}
+      >
+        <Alert onClose={handleCloseDeleteSuccess} severity="success">
+          Réclamation supprimée avec succès!
         </Alert>
       </Snackbar>
     </>
