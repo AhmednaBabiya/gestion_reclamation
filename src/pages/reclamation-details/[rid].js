@@ -359,7 +359,9 @@ function ReclamationDetails() {
                       </Grid>
                       <Grid item md={6} xs={12}>
                         <FormControl fullWidth>
-                          {(status == "Clôturée" || status == "Traitée") &&
+                          {(status == "Clôturée" ||
+                            status == "Traitée" ||
+                            status == "Anciennement traitée") &&
                           is_super_admin == false ? (
                             <Grid item md={6} xs={12}>
                               <TextField
@@ -385,6 +387,9 @@ function ReclamationDetails() {
                                 </MenuItem>
                                 <MenuItem value="Traitée">Traitée</MenuItem>
                                 <MenuItem value="Pas encore traitée">Pas encore traitée</MenuItem>
+                                <MenuItem value="Anciennement traitée">
+                                  Anciennement traitée
+                                </MenuItem>
                                 {is_super_admin == true && (
                                   <MenuItem value="Clôturée">Clôturée</MenuItem>
                                 )}

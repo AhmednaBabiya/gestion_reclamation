@@ -86,12 +86,14 @@ class Reclamation(models.Model):
     STATUS_TREATED = 'Traitée'
     STATUS_NOT_TREATED = 'Pas encore traitée'
     STATUS_CLOSED = 'Clôturée'
+    STATUS_ALREADY_TREATED = 'Anciennement traitée'
 
     STATUS_CHOICES = [
         (STATUS_ON_GOING, 'En cours de traitement'),
         (STATUS_TREATED, 'Traitée'),
         (STATUS_NOT_TREATED, 'Pas encore traitée'),
-        (STATUS_CLOSED, 'Clôturée')
+        (STATUS_CLOSED, 'Clôturée'),
+        (STATUS_ALREADY_TREATED, 'Anciennement traitée')
     ]
 
     TYPE_CHOICES = [

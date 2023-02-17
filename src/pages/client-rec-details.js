@@ -224,7 +224,8 @@ function ClientReclamationDetails() {
                               ? status
                               : (status == "Pas encore traitée" && "لم تتم معالجتها بعد") ||
                                 (status == "En cours de traitement" && "يتم معالجتها") ||
-                                (status == "Traitée" && "تمت معالجتها")
+                                (status == "Traitée" && "تمت معالجتها") ||
+                                (status == "Anciennement traitée" && "تمت معالجتها سابقا")
                           }
                           variant="outlined"
                         />
@@ -327,7 +328,7 @@ function ClientReclamationDetails() {
                       p: 2,
                     }}
                   >
-                    {status === "Clôturée" ? (
+                    {status === "Clôturée" || status === "Anciennement traitée" ? (
                       <Button
                         style={localStorage.getItem("language") == "fr" ? fr : ar}
                         color="primary"
