@@ -286,6 +286,7 @@ export const CustomerListResults = () => {
                           color={
                             (customer.status === "Traitée" && "success") ||
                             (customer.status === "Pas encore traitée" && "error") ||
+                            (customer.status === "Anciennement traitée" && "info") ||
                             "warning"
                           }
                         >
