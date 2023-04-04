@@ -80,6 +80,8 @@ class Reclamation(models.Model):
     TYPE_UNBLOCK = 'Déblocage'
     TYPE_PASSWORD = 'Changement de mot de passe'
     TYPE_Transfers = 'Virements'
+    TYPE_GAB = 'Retrait Gab'
+    TYPE_EXTRACT = 'Extrait de compte'
     TYPE_OTHERS = 'Autres'
 
     STATUS_ON_GOING = 'En cours de traitement'
@@ -102,6 +104,8 @@ class Reclamation(models.Model):
         (TYPE_UNBLOCK, 'Déblocage'),
         (TYPE_PASSWORD, 'Changement de mot de passe'),
         (TYPE_Transfers, 'Virements'),
+        (TYPE_GAB, 'Retrait Gab'),
+        (TYPE_EXTRACT, 'Extrait de compte'),
         (TYPE_OTHERS, 'Autres')
     ]
     created_at = models.DateTimeField(auto_now_add=True, null=True)
