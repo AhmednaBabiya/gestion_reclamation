@@ -206,6 +206,8 @@ function ClientReclamationDetails() {
                                 (type == "Changement de téléphone" && "تغيير الهاتف") ||
                                 (type == "Activation" && "التفعيل") ||
                                 (type == "Virements" && "التحويلات") ||
+                                (type == "Retrait Gab" && "سحب الأموال بواسطة Gab") ||
+                                (type == "Extrait de compte" && "بيان الحساب") ||
                                 (type == "Autres" && "آخر")
                           }
                           variant="outlined"

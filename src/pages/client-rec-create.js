@@ -410,6 +410,20 @@ const ClientReclamationCreate = () => {
                 </MenuItem>
                 <MenuItem
                   style={{ fontFamily: "calibri" }}
+                  value="Retrait Gab"
+                  dir={language == "fr" ? null : "rtl"}
+                >
+                  {language == "fr" ? "Retrait Gab" : "سحب الأموال بواسطة Gab"}
+                </MenuItem>
+                <MenuItem
+                  style={{ fontFamily: "calibri" }}
+                  value="Extrait de compte"
+                  dir={language == "fr" ? null : "rtl"}
+                >
+                  {language == "fr" ? "Extrait de compte" : "بيان الحساب"}
+                </MenuItem>
+                <MenuItem
+                  style={{ fontFamily: "calibri" }}
                   value="Autres"
                   dir={language == "fr" ? null : "rtl"}
                 >
