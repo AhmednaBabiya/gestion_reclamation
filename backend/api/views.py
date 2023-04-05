@@ -23,7 +23,7 @@ def export_to_csv(request):
     begin_date = request.data['begin_date']
     end_date = request.data['end_date']
     reclamations = Reclamation.objects.filter(
-        created_at__range=[begin_date, end_date])
+        created_at__range=[begin_date, end_date]).order_by('created_at')
     response = HttpResponse(content_type='text/csv; charset=utf-8')
     date = datetime.datetime.now()
     date = date.strftime('%d-%m-%Y_%H:%M')
