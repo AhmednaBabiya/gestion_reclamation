@@ -58,7 +58,7 @@ function ReclamationDetails() {
     axios
       .put(
         reclamationURL + "/update-delete",
-        { customer_name, customer_phone_number, customer_nni_number, type, status },
+        { customer_name, customer_phone_number, customer_nni_number, type, status, description },
         {
           headers: {
             "Content-Type": "application/json",
