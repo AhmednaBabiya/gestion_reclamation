@@ -37,7 +37,7 @@ def export_to_csv(request):
         'customer_name', 'customer_phone_number', 'customer_nni_number', 'created_by', 'created_at', 'updated_by', 'treatment_date', 'type', 'status', 'identity_card', 'photo', 'screenshot')
     for reclamation in reclamation_fields:
         created_at_formatted = reclamation[4].strftime('%d-%m-%Y %H:%M:%S')
-        treatment_date = reclamation[7]
+        treatment_date = reclamation[6]
         if treatment_date is not None:
             treatment_date_formatted = treatment_date.strftime(
                 '%d-%m-%Y %H:%M:%S')
