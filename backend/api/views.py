@@ -31,10 +31,10 @@ def export_to_csv(request):
     # Use the codecs module to open the response object in write mode with UTF-8 encoding
     csv_file = codecs.getwriter('utf-8')(response)
     writer = csv.writer(csv_file)
-    writer.writerow(['Nom complet', 'Telephone', 'NNI', 'Traitee par',
-                    'date de creation', 'type', 'statut', 'date de traitement', "lien carte d'identite", 'lien photo', "lien capture d'ecran", "créer par"])
+    writer.writerow(['Nom complet', 'Telephone', 'NNI', "créer par", 'date de creation', 'Traitee par', 'date de traitement',
+                    'type', 'statut', "lien carte d'identite", 'lien photo', "lien capture d'ecran"])
     reclamation_fields = reclamations.values_list(
-        'customer_name', 'customer_phone_number', 'customer_nni_number', 'updated_by', 'created_at', 'type', 'status', 'treatment_date', 'identity_card', 'photo', 'screenshot', 'created_by')
+        'customer_name', 'customer_phone_number', 'customer_nni_number', 'created_by', 'created_at', 'updated_by', 'treatment_date', 'type', 'status', 'identity_card', 'photo', 'screenshot')
     for reclamation in reclamation_fields:
         created_at_formatted = reclamation[4].strftime('%d-%m-%Y %H:%M:%S')
         treatment_date = reclamation[7]
@@ -50,8 +50,8 @@ def export_to_csv(request):
             reclamation[3],
             created_at_formatted,
             reclamation[5],
-            reclamation[6],
             treatment_date_formatted,
+            reclamation[7],
             reclamation[8],
             reclamation[9],
             reclamation[10],
