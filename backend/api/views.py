@@ -119,7 +119,7 @@ class ReclamationDetails(generics.RetrieveAPIView):
 class ReclamationUpdateDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Reclamation.objects.all()
     serializer_class = ReclamationSerializer
-    permission_classes = [IsAdminUser]
+    # permission_classes = [IsAdminUser]
 
     def update(self, request, pk):
         user = request.user
@@ -128,6 +128,9 @@ class ReclamationUpdateDetails(generics.RetrieveUpdateDestroyAPIView):
         if copy['status'] == 'Traitée':
             copy['updated_by'] = f'{user.first_name} {user.last_name}'
             copy['treatment_date'] = datetime.datetime.now()
+        if copy['status'] == 'Clôturée':
+            if reclamation.status != 'Traitée':
+                return Response({"Error": "Status must be 'Traitée' before changing to 'Clôturée'"}, status=status.HTTP_400_BAD_REQUEST)
         serializer = ReclamationSerializer(
             reclamation, data=copy, partial=True, context={'request': request})
         if request.data['status'] == 'Clôturée' and user.is_super_admin == False:
