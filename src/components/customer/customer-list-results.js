@@ -221,11 +221,11 @@ export const CustomerListResults = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell>Nom du client</TableCell>
+                    <TableCell>Type</TableCell>
+                    <TableCell>Status</TableCell>
                     <TableCell>Créé le</TableCell>
                     <TableCell>Téléphone du client</TableCell>
                     <TableCell>NNI client</TableCell>
-                    <TableCell>Type</TableCell>
-                    <TableCell>Status</TableCell>
                     <TableCell>Crée par</TableCell>
                   </TableRow>
                 </TableHead>
@@ -254,30 +254,6 @@ export const CustomerListResults = () => {
                           highlightClassName="YourHighlightClass"
                           searchWords={[search]}
                           autoEscape={true}
-                          textToHighlight={customer.created_at}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Highlighter
-                          highlightClassName="YourHighlightClass"
-                          searchWords={[search]}
-                          autoEscape={true}
-                          textToHighlight={customer.customer_phone_number.toString()}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Highlighter
-                          highlightClassName="YourHighlightClass"
-                          searchWords={[search]}
-                          autoEscape={true}
-                          textToHighlight={customer.customer_nni_number.toString()}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Highlighter
-                          highlightClassName="YourHighlightClass"
-                          searchWords={[search]}
-                          autoEscape={true}
                           textToHighlight={customer.type}
                         />
                       </TableCell>
@@ -297,6 +273,30 @@ export const CustomerListResults = () => {
                             textToHighlight={customer.status.toString()}
                           />
                         </SeverityPill>
+                      </TableCell>
+                      <TableCell>
+                        <Highlighter
+                          highlightClassName="YourHighlightClass"
+                          searchWords={[search]}
+                          autoEscape={true}
+                          textToHighlight={customer.created_at}
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <Highlighter
+                          highlightClassName="YourHighlightClass"
+                          searchWords={[search]}
+                          autoEscape={true}
+                          textToHighlight={customer.customer_phone_number.toString()}
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <Highlighter
+                          highlightClassName="YourHighlightClass"
+                          searchWords={[search]}
+                          autoEscape={true}
+                          textToHighlight={customer.customer_nni_number.toString()}
+                        />
                       </TableCell>
                       <TableCell>
                         <Highlighter
