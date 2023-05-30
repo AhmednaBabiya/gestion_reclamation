@@ -11,7 +11,7 @@ class ProfileAdmin(admin.ModelAdmin):
 class ReclamationAdmin(admin.ModelAdmin):
     search_fields = ['customer_phone_number',
                      'customer_nni_number', 'customer_name']
-    list_filter = ['type', 'status', 'created_at', 'treatment_date']
+    list_filter = ['type', 'status', 'created_at', 'treatment_date', 'created_by']
 
 
 admin.site.register(Profile, ProfileAdmin)
