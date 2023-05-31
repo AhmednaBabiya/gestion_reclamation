@@ -89,13 +89,15 @@ class Reclamation(models.Model):
     STATUS_NOT_TREATED = 'Pas encore traitée'
     STATUS_CLOSED = 'Clôturée'
     STATUS_ALREADY_TREATED = 'Anciennement traitée'
+    STATUS_FALSE = 'Données erronées'
 
     STATUS_CHOICES = [
         (STATUS_ON_GOING, 'En cours de traitement'),
         (STATUS_TREATED, 'Traitée'),
         (STATUS_NOT_TREATED, 'Pas encore traitée'),
         (STATUS_CLOSED, 'Clôturée'),
-        (STATUS_ALREADY_TREATED, 'Anciennement traitée')
+        (STATUS_ALREADY_TREATED, 'Anciennement traitée'),
+        (STATUS_FALSE, 'Données erronées')
     ]
 
     TYPE_CHOICES = [
@@ -111,6 +113,8 @@ class Reclamation(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     last_update = models.DateTimeField(auto_now=True)
     treatment_date = models.DateTimeField(null=True)
+    error_date = models.DateTimeField(null=True, blank=True)
+    commentary = models.TextField(null=True, blank=True)
     type = models.CharField(
         max_length=255, choices=TYPE_CHOICES, default=TYPE_ACTIVATION)
     status = models.CharField(

@@ -32,14 +32,19 @@ def export_to_csv(request):
     csv_file = codecs.getwriter('utf-8')(response)
     writer = csv.writer(csv_file)
     writer.writerow(['Nom complet', 'Telephone', 'NNI', "créer par", 'date de creation', 'Traitee par', 'date de traitement',
-                    'type', 'statut', "lien carte d'identite", 'lien photo', "lien capture d'ecran"])
+                    'type', 'statut', "lien carte d'identite", 'lien photo', "lien capture d'ecran", "commentaire", "date du commentaire"])
     reclamation_fields = reclamations.values_list(
-        'customer_name', 'customer_phone_number', 'customer_nni_number', 'created_by', 'created_at', 'updated_by', 'treatment_date', 'type', 'status', 'identity_card', 'photo', 'screenshot')
+        'customer_name', 'customer_phone_number', 'customer_nni_number', 'created_by', 'created_at', 'updated_by', 'treatment_date',
+        'type', 'status', 'identity_card', 'photo', 'screenshot', 'commentary', 'error_date')
     for reclamation in reclamation_fields:
         created_at_formatted = reclamation[4].strftime('%d-%m-%Y %H:%M:%S')
         treatment_date = reclamation[6]
+        error_date = reclamation[13]
         if treatment_date is not None:
             treatment_date_formatted = treatment_date.strftime(
+                '%d-%m-%Y %H:%M:%S')
+        if error_date is not None:
+            error_date_formatted = error_date.strftime(
                 '%d-%m-%Y %H:%M:%S')
         else:
             treatment_date_formatted = ''
@@ -56,6 +61,8 @@ def export_to_csv(request):
             reclamation[9],
             reclamation[10],
             reclamation[11],
+            reclamation[12],
+            error_date_formatted
         ]
         writer.writerow(modified_reclamation)
     return response
@@ -128,6 +135,8 @@ class ReclamationUpdateDetails(generics.RetrieveUpdateDestroyAPIView):
         if copy['status'] == 'Traitée':
             copy['updated_by'] = f'{user.first_name} {user.last_name}'
             copy['treatment_date'] = datetime.datetime.now()
+        if copy['status'] == 'Données erronées':
+            copy['error_date'] = datetime.datetime.now()
         if copy['status'] == 'Clôturée':
             if reclamation.status != 'Traitée':
                 return Response({"Error": "Status must be 'Traitée' before changing to 'Clôturée'"}, status=status.HTTP_400_BAD_REQUEST)
