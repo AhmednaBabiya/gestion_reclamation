@@ -519,7 +519,7 @@ const ClientReclamationCreate = () => {
                 </div>
               </div>
               <div>
-                {(is_admin == true || is_super_admin == true) && screenshot && (
+                {is_super_admin == true && screenshot && (
                   <div style={{ marginTop: 20, marginRight: 10 }}>
                     <img
                       alt="not found"
@@ -539,7 +539,7 @@ const ClientReclamationCreate = () => {
                     </Button>
                   </div>
                 )}
-                {(is_admin == true || is_super_admin == true) && (
+                {is_super_admin == true && (
                   <div
                     dir={language == "fr" ? null : "rtl"}
                     style={{ display: "flex", marginTop: 20, marginBottom: 20 }}
