@@ -39,15 +39,17 @@ function ReclamationDetails() {
   const [customer_nni_number, setCustomerNNINumber] = useState("");
   const [identity_card, setIdentityCard] = useState("");
   const [photo, setPhoto] = useState("");
-  const [screenshot, setScreenshot] = useState(null);
+  const [screenshot, setScreenshot] = useState("");
   const [description, setDescription] = useState("");
   const [created_at, setCreatedAt] = useState("");
   const [last_update, setLastUpdate] = useState("");
-  const [treatment_date, setTreatmentDate] = useState(null);
-  const [updated_by, setUpdated_by] = useState(null);
-  const [created_by, setCreatedBy] = useState(null);
+  const [treatment_date, setTreatmentDate] = useState("");
+  const [updated_by, setUpdated_by] = useState("");
+  const [created_by, setCreatedBy] = useState("");
   const [type, setType] = useState("");
   const [status, setStatus] = useState("");
+  const [commentary, setCommentary] = useState(null);
+  const [error_date, setErrorDate] = useState(null);
   const [is_super_admin, setIsSuperAdmin] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
@@ -58,7 +60,15 @@ function ReclamationDetails() {
     axios
       .put(
         reclamationURL + "/update-delete",
-        { customer_name, customer_phone_number, customer_nni_number, type, status, description },
+        {
+          customer_name,
+          customer_phone_number,
+          customer_nni_number,
+          type,
+          status,
+          description,
+          commentary,
+        },
         {
           headers: {
             "Content-Type": "application/json",
@@ -135,11 +145,19 @@ function ReclamationDetails() {
         setUpdated_by(res.data.updated_by);
         setType(res.data.type);
         setStatus(res.data.status);
-        setTreatmentDate(
-          res.data.treatment_date.split("T")[0] +
-            " " +
-            res.data.treatment_date.split("T")[1].split(".")[0].slice(0, -3)
-        );
+        setCommentary(res.data.commentary);
+        res.data.treatment_date &&
+          setTreatmentDate(
+            res.data.treatment_date.split("T")[0] +
+              " " +
+              res.data.treatment_date.split("T")[1].split(".")[0].slice(0, -3)
+          );
+        res.data.error_date &&
+          setErrorDate(
+            res.data.error_date.split("T")[0] +
+              " " +
+              res.data.error_date.split("T")[1].split(".")[0].slice(0, -3)
+          );
       })
       .catch((err) => {
         console.log("error message", err);
@@ -395,6 +413,7 @@ function ReclamationDetails() {
                                 {is_super_admin == true && (
                                   <MenuItem value="Clôturée">Clôturée</MenuItem>
                                 )}
+                                <MenuItem value="Données erronées">Données erronées</MenuItem>
                               </Select>
                             </>
                           )}
@@ -421,6 +440,41 @@ function ReclamationDetails() {
                             multiline
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
+                          />
+                        </Grid>
+                      )}
+                      {error_date === null ? (
+                        <Grid item md={6} xs={12}>
+                          <TextField
+                            fullWidth
+                            label="Commentaire"
+                            name="commentary"
+                            multiline
+                            value={commentary}
+                            onChange={(e) => setCommentary(e.target.value)}
+                            variant="outlined"
+                          />
+                        </Grid>
+                      ) : (
+                        <Grid item md={6} xs={12}>
+                          <TextField
+                            fullWidth
+                            disabled
+                            label="Commentaire"
+                            name="commentary"
+                            value={commentary}
+                            variant="outlined"
+                          />
+                        </Grid>
+                      )}
+                      {error_date != null && (
+                        <Grid item md={6} xs={12}>
+                          <TextField
+                            fullWidth
+                            disabled
+                            label="date du signal d'erreur"
+                            name="error_date"
+                            value={error_date}
                             variant="outlined"
                           />
                         </Grid>
