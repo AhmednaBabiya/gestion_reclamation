@@ -41,6 +41,7 @@ const ClientReclamationCreate = () => {
   const [language, setLanguage] = useState(localStorage.getItem("language"));
   const [reclamations, setReclamations] = useState([]);
   const [is_admin, setIsAdmin] = useState(false);
+  const [is_consultant, setIsConsultant] = useState(false);
   const [is_super_admin, setIsSuperAdmin] = useState(false);
   let tokenStr = localStorage.getItem("token");
   let match = false;
@@ -61,6 +62,7 @@ const ClientReclamationCreate = () => {
       .then((res) => {
         setIsSuperAdmin(res.data.is_super_admin);
         setIsAdmin(res.data.is_admin);
+        setIsConsultant(res.data.is_consultant);
       })
       .catch((err) => {
         console.log("error message", err);
@@ -519,7 +521,7 @@ const ClientReclamationCreate = () => {
                 </div>
               </div>
               <div>
-                {is_super_admin == true && screenshot && (
+                {is_consultant == true && is_super_admin == true && screenshot && (
                   <div style={{ marginTop: 20, marginRight: 10 }}>
                     <img
                       alt="not found"
@@ -539,7 +541,7 @@ const ClientReclamationCreate = () => {
                     </Button>
                   </div>
                 )}
-                {is_super_admin == true && (
+                {is_consultant == true && is_super_admin == true && (
                   <div
                     dir={language == "fr" ? null : "rtl"}
                     style={{ display: "flex", marginTop: 20, marginBottom: 20 }}
