@@ -45,6 +45,7 @@ const ClientReclamationCreate = () => {
   const [is_super_admin, setIsSuperAdmin] = useState(false);
   let tokenStr = localStorage.getItem("token");
   let match = false;
+  console.log("is_consultant", is_consultant);
   const ar = {
     fontFamily: "calibri",
   };
@@ -521,27 +522,28 @@ const ClientReclamationCreate = () => {
                 </div>
               </div>
               <div>
-                {is_consultant == true && is_super_admin == true && screenshot && (
-                  <div style={{ marginTop: 20, marginRight: 10 }}>
-                    <img
-                      alt="not found"
-                      width={"350px"}
-                      height={"180px"}
-                      src={URL.createObjectURL(screenshot)}
-                    />
-                    <br />
-                    <Button
-                      style={localStorage.getItem("language") == "fr" ? fr : ar}
-                      color="primary"
-                      size="small"
-                      variant="contained"
-                      onClick={() => setScreenshot(null)}
-                    >
-                      {language == "fr" ? "Supprimer" : "حذف"}
-                    </Button>
-                  </div>
-                )}
-                {is_consultant == true && is_super_admin == true && (
+                {((is_consultant === true && is_admin === true) || is_super_admin === true) &&
+                  screenshot && (
+                    <div style={{ marginTop: 20, marginRight: 10 }}>
+                      <img
+                        alt="not found"
+                        width={"350px"}
+                        height={"180px"}
+                        src={URL.createObjectURL(screenshot)}
+                      />
+                      <br />
+                      <Button
+                        style={localStorage.getItem("language") == "fr" ? fr : ar}
+                        color="primary"
+                        size="small"
+                        variant="contained"
+                        onClick={() => setScreenshot(null)}
+                      >
+                        {language == "fr" ? "Supprimer" : "حذف"}
+                      </Button>
+                    </div>
+                  )}
+                {((is_consultant === true && is_admin === true) || is_super_admin === true) && (
                   <div
                     dir={language == "fr" ? null : "rtl"}
                     style={{ display: "flex", marginTop: 20, marginBottom: 20 }}
