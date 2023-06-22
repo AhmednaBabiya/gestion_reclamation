@@ -136,8 +136,8 @@ class ReclamationUpdateDetails(generics.RetrieveUpdateDestroyAPIView):
         if copy['status'] == 'Traitée':
             copy['updated_by'] = f'{user.first_name} {user.last_name}'
             copy['treatment_date'] = datetime.datetime.now()
-        if copy['status'] == 'Données erronées':
-            copy['error_date'] = datetime.datetime.now()
+        # if copy['status'] == 'Données erronées':
+        #     copy['error_date'] = datetime.datetime.now()
         if copy['status'] == 'Clôturée':
             if reclamation.status != 'Traitée':
                 return Response({"Error": "Status must be 'Traitée' before changing to 'Clôturée'"}, status=status.HTTP_400_BAD_REQUEST)
