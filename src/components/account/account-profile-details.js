@@ -87,7 +87,8 @@ export const AccountProfileDetails = (props) => {
                 fullWidth
                 label="Addresse Email"
                 name="email"
-                onChange={(e) => setEmail(e.target.value)}
+                disabled
+                // onChange={(e) => setEmail(e.target.value)}
                 value={email}
                 variant="outlined"
               />
