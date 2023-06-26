@@ -41,12 +41,15 @@ def export_to_csv(request):
         treatment_date = reclamation[6]
         error_date = reclamation[13]
         if treatment_date is not None:
+            print("Treatment date exists:", treatment_date)
             treatment_date_formatted = treatment_date.strftime(
                 '%d-%m-%Y %H:%M:%S')
+            print("Treatment date formatted:", treatment_date_formatted)
         if error_date is not None:
             error_date_formatted = error_date.strftime(
                 '%d-%m-%Y %H:%M:%S')
         else:
+            print("Treatment date is None")
             treatment_date_formatted = ''
             error_date_formatted = ''
         modified_reclamation = [
@@ -136,8 +139,8 @@ class ReclamationUpdateDetails(generics.RetrieveUpdateDestroyAPIView):
         if copy['status'] == 'Traitée':
             copy['updated_by'] = f'{user.first_name} {user.last_name}'
             copy['treatment_date'] = datetime.datetime.now()
-        # if copy['status'] == 'Données erronées':
-        #     copy['error_date'] = datetime.datetime.now()
+        if copy['status'] == 'Données erronées':
+            copy['error_date'] = datetime.datetime.now()
         if copy['status'] == 'Clôturée':
             if reclamation.status != 'Traitée':
                 return Response({"Error": "Status must be 'Traitée' before changing to 'Clôturée'"}, status=status.HTTP_400_BAD_REQUEST)
