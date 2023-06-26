@@ -171,7 +171,7 @@ class ReclamationDetails(generics.RetrieveAPIView):
 class ReclamationUpdateDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Reclamation.objects.all()
     serializer_class = ReclamationSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminOrConsultant]
 
     def update(self, request, pk):
         user = request.user
