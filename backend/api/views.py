@@ -8,7 +8,7 @@ import datetime
 from rest_framework import status, generics, mixins
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
 from rest_framework import filters
 from backend.api.permissions import IsAdminOrConsultant
@@ -72,6 +72,7 @@ from backend.api.pagination import ReclamationPagination, ProfilePagination
 #     return response
 
 @api_view(['POST'])
+@permission_classes([IsAdminOrConsultant])
 def export_to_csv(request):
     begin_date = request.data['begin_date']
     end_date = request.data['end_date']
@@ -116,20 +117,20 @@ def export_to_csv(request):
 class ProfileList(generics.ListAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminOrConsultant]
     pagination_class = ProfilePagination
 
 
 class ProfileDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminOrConsultant]
 
 
 class ReclamationList(generics.ListAPIView):
     queryset = Reclamation.objects.filter().order_by("-id")
     serializer_class = ReclamationSerializer
-    # permission_classes = [IsAuthenticated, IsAdminOrConsultant]
+    permission_classes = [IsAdminOrConsultant]
     pagination_class = ReclamationPagination
     filter_backends = [filters.SearchFilter]
     search_fields = ['customer_nni_number',
@@ -165,6 +166,7 @@ class ReclamationCreate(generics.CreateAPIView):
 
 class ReclamationDetails(generics.RetrieveAPIView):
     queryset = Reclamation.objects.all()
+    permission_classes = [IsAdminOrConsultant]
     serializer_class = ReclamationSerializer
 
 
