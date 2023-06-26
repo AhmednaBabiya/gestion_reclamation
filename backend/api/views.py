@@ -72,7 +72,7 @@ from backend.api.pagination import ReclamationPagination, ProfilePagination
 #     return response
 
 @api_view(['POST'])
-@permission_classes([IsAdminOrConsultant])
+# @permission_classes([IsAdminOrConsultant])
 def export_to_csv(request):
     begin_date = request.data['begin_date']
     end_date = request.data['end_date']
