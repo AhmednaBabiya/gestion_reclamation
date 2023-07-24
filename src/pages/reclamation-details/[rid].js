@@ -368,6 +368,9 @@ function ReclamationDetails() {
                                 <MenuItem value="Changement de mot de passe">
                                   Changement de mot de passe
                                 </MenuItem>
+                                <MenuItem value="Changement de numéro de compte">
+                                  Changement de numéro de compte
+                                </MenuItem>
                                 <MenuItem value="Virements">Virements</MenuItem>
                                 <MenuItem value="Retrait Gab">Retrait Gab</MenuItem>
                                 <MenuItem value="Extrait de compte">Extrait de compte</MenuItem>
