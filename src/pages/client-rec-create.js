@@ -406,6 +406,13 @@ const ClientReclamationCreate = () => {
                 </MenuItem>
                 <MenuItem
                   style={{ fontFamily: "calibri" }}
+                  value="Changement de numéro de compte"
+                  dir={language == "fr" ? null : "rtl"}
+                >
+                  {language == "fr" ? "Changement de numéro de compte" : "تغيير رقم الحساب"}
+                </MenuItem>
+                <MenuItem
+                  style={{ fontFamily: "calibri" }}
                   value="Virements"
                   dir={language == "fr" ? null : "rtl"}
                 >

@@ -79,6 +79,7 @@ class Reclamation(models.Model):
     TYPE_PHONE = 'Changement de téléphone'
     TYPE_UNBLOCK = 'Déblocage'
     TYPE_PASSWORD = 'Changement de mot de passe'
+    TYPE_ACCOUNT = 'Changement de numéro de compte'
     TYPE_Transfers = 'Virements'
     TYPE_GAB = 'Retrait Gab'
     TYPE_EXTRACT = 'Extrait de compte'
@@ -105,6 +106,7 @@ class Reclamation(models.Model):
         (TYPE_PHONE, 'Changement de téléphone'),
         (TYPE_UNBLOCK, 'Déblocage'),
         (TYPE_PASSWORD, 'Changement de mot de passe'),
+        (TYPE_ACCOUNT, 'Changement de numéro de compte'),
         (TYPE_Transfers, 'Virements'),
         (TYPE_GAB, 'Retrait Gab'),
         (TYPE_EXTRACT, 'Extrait de compte'),

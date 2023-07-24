@@ -202,6 +202,7 @@ function ClientReclamationDetails() {
                             language == "fr"
                               ? type
                               : (type == "Changement de mot de passe" && "تغيير كلمة السر") ||
+                                (type == "Changement de numéro de compte" && "تغيير رقم الحساب") ||
                                 (type == "Déblocage" && "الغاء القفل") ||
                                 (type == "Changement de téléphone" && "تغيير الهاتف") ||
                                 (type == "Activation" && "التفعيل") ||
@@ -249,7 +250,7 @@ function ClientReclamationDetails() {
                           fullWidth
                           disabled
                           label={
-                            language == "fr" ? "Date du dernier mise à jour" : "تاريخ آخر تحديث"
+                            language == "fr" ? "Date du dernière mise à jour" : "تاريخ آخر تحديث"
                           }
                           name="customer_nni_number"
                           value={last_update}
