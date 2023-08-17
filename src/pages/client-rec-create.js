@@ -187,7 +187,7 @@ const ClientReclamationCreate = () => {
       return;
     }
     setOpenSuccess(false);
-    Router.push("/client-rec-details");
+    // Router.push("/client-rec-details");
   };
   const handleCloseError = (event, reason) => {
     if (reason === "clickaway") {
