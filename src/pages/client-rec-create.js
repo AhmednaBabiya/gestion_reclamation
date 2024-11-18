@@ -434,21 +434,21 @@ const ClientReclamationCreate = () => {
                 </MenuItem>
                 <MenuItem
                   style={{ fontFamily: "calibri" }}
-                  value="Extrait de compte"
+                  value="Transfert interoperabile"
                   dir={language == "fr" ? null : "rtl"}
                 >
                   {language == "fr" ? "Transfert interoperabile" : "تحويل"}
                 </MenuItem>
                 <MenuItem
                   style={{ fontFamily: "calibri" }}
-                  value="Extrait de compte"
+                  value="Paiement par erreur"
                   dir={language == "fr" ? null : "rtl"}
                 >
                   {language == "fr" ? "Paiement par erreur" : "الدفع بالخطأ"}
                 </MenuItem>
                 <MenuItem
                   style={{ fontFamily: "calibri" }}
-                  value="Extrait de compte"
+                  value="Transfert par erreur"
                   dir={language == "fr" ? null : "rtl"}
                 >
                   {language == "fr" ? "Transfert par erreur" : "تحويل الأموال عن طريق الخطأ"}
