@@ -108,6 +108,9 @@ class Reclamation(models.Model):
         (TYPE_Transfers, "Virements"),
         (TYPE_GAB, "Retrait Gab"),
         (TYPE_EXTRACT, "Extrait de compte"),
+        (TYPE_OTHERS, "Transfert interoperabile"),
+        (TYPE_OTHERS, "Paiement par erreur"),
+        (TYPE_OTHERS, "Transfert par erreur"),
         (TYPE_OTHERS, "Autres"),
     ]
     created_at = models.DateTimeField(auto_now_add=True, null=True)
