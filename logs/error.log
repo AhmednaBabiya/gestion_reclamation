@@ -1,0 +1,117 @@
+You're accessing the development server over HTTPS, but it only supports HTTP.
+You're accessing the development server over HTTPS, but it only supports HTTP.
+You're accessing the development server over HTTPS, but it only supports HTTP.
+You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 10:45:35,564 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 10:45:35,565 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 10:45:35,569 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 10:45:35,569 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 10:45:55,921 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 10:45:55,922 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 10:45:55,925 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 10:45:55,925 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:18:09,603 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:18:09,607 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:18:28,918 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:18:28,922 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:20:20,126 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:20:20,130 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:22:08,006 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:22:08,009 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:22:08,021 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:22:08,022 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:22:08,026 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:22:08,028 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:22:25,612 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:22:25,614 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:22:25,618 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:22:25,619 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:22:26,612 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:22:26,612 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:22:26,616 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:22:26,617 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:22:30,871 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:22:30,875 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:22:55,190 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:22:55,193 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:23:10,940 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:23:10,944 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:23:14,845 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:23:14,848 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:23:20,483 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:23:20,487 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:23:31,847 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:23:31,851 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:23:32,894 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:23:32,898 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:23:35,751 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:23:35,755 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:38:30,089 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:38:30,090 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:38:30,095 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:38:30,096 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-04-14 11:42:30,820 log Internal Server Error: /backend/reclamation-create/
+Traceback (most recent call last):
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\venv\Lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\venv\Lib\site-packages\django\views\generic\base.py", line 103, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\venv\Lib\site-packages\rest_framework\generics.py", line 190, in post
+    return self.create(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\backend\api\views.py", line 171, in create
+    object_id=reclamation.id,
+              ^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'reclamation' where it is not associated with a value
+ERROR 2025-04-14 11:42:30,825 basehttp "POST /backend/reclamation-create/ HTTP/1.1" 500 110307
+ERROR 2025-04-14 11:46:16,596 log Internal Server Error: /backend/reclamation-list/
+Traceback (most recent call last):
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\venv\Lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\venv\Lib\site-packages\django\views\generic\base.py", line 103, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\venv\Lib\site-packages\rest_framework\views.py", line 497, in dispatch
+    self.initial(request, *args, **kwargs)
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\venv\Lib\site-packages\rest_framework\views.py", line 415, in initial
+    self.check_permissions(request)
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\venv\Lib\site-packages\rest_framework\views.py", line 332, in check_permissions
+    if not permission.has_permission(request, self):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MyProjects\gestion_reclamation_git\gestion_reclamation\backend\api\permissions.py", line 7, in has_permission
+    return bool(request.user.is_consultant or request.user.is_admin)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'AnonymousUser' object has no attribute 'is_consultant'
+ERROR 2025-04-14 11:46:16,601 basehttp "GET /backend/reclamation-list/ HTTP/1.1" 500 107558
