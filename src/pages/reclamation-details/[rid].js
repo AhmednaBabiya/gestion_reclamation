@@ -374,6 +374,13 @@ function ReclamationDetails() {
                                 <MenuItem value="Virements">Virements</MenuItem>
                                 <MenuItem value="Retrait Gab">Retrait Gab</MenuItem>
                                 <MenuItem value="Extrait de compte">Extrait de compte</MenuItem>
+                                <MenuItem value="Transfert interoperabile">
+                                  Transfert interoperabile
+                                </MenuItem>
+                                <MenuItem value="Paiement par erreur">Paiement par erreur</MenuItem>
+                                <MenuItem value="Transfert par erreur">
+                                  Transfert par erreur
+                                </MenuItem>
                                 <MenuItem value="Autres">Autres</MenuItem>
                               </Select>
                             </>
